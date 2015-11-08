@@ -36,10 +36,6 @@ class GiveViewController: UITableViewController {
         conditionLabel.text = conditionName
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     @IBAction func Done(sender: AnyObject) {
         var imageFile: PFFile?
         if let image = image {

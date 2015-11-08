@@ -56,10 +56,6 @@ class NeedViewController: UITableViewController {
             }
         }
     }
-
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
     
     @IBAction func Done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
