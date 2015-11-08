@@ -56,10 +56,6 @@ class NeedViewController: UITableViewController {
             }
         }
     }
-    
-    @IBAction func Done(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
 
     // MARK: - Table view data source
 
