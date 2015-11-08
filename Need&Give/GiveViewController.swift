@@ -37,32 +37,6 @@ class GiveViewController: UITableViewController {
     }
     
     @IBAction func Done(sender: AnyObject) {
-        var imageFile: PFFile?
-        if let image = image {
-            let imageData = UIImagePNGRepresentation(image)
-            imageFile = PFFile(name:"image.png", data:imageData!)
-        }
-        let given = PFObject(className:"Needs")
-        given["Name"] = name.text
-        given["detail"] = detail.text
-        given["location"] = location.text
-        given["organization"] = organization.text
-        given["mailAddress"] = mailAddress.text
-        given["phoneNumber"] = phoneNumber.text
-        given["category"] = categoryLabel.text
-        given["condition"] = conditionLabel.text
-        if let imageFile = imageFile {
-            given["image"] = imageFile
-        }
-        given.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                print("Given object info saved")
-            } else {
-                print("Given object info saving failure")
-            }
-        }
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -101,6 +75,33 @@ class GiveViewController: UITableViewController {
         if segue.identifier == "pickCategory" {
             let controller = segue.destinationViewController as! PickCategoryViewController
             controller.categoryName = categoryName
+        }
+        if segue.identifier == "Given" {
+            var imageFile: PFFile?
+            if let image = image {
+                let imageData = UIImagePNGRepresentation(image)
+                imageFile = PFFile(name:"image.png", data:imageData!)
+            }
+            let given = PFObject(className:"Needs")
+            given["Name"] = name.text
+            given["detail"] = detail.text
+            given["location"] = location.text
+            given["organization"] = organization.text
+            given["mailAddress"] = mailAddress.text
+            given["phoneNumber"] = phoneNumber.text
+            given["category"] = categoryLabel.text
+            given["condition"] = conditionLabel.text
+            if let imageFile = imageFile {
+                given["image"] = imageFile
+            }
+            given.saveInBackgroundWithBlock {
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    print("Given object info saved")
+                } else {
+                    print("Given object info saving failure")
+                }
+            }
         }
     }
     
