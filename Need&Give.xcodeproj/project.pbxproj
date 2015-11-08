@@ -88,7 +88,7 @@
 		002A14E61BEE9F29007288F6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		002A14E81BEE9F54007288F6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		002A14EA1BEE9F5B007288F6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		002A14EE1BEEC81F007288F6 /* ListedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListedCell.swift; path = ../ListedCell.swift; sourceTree = "<group>"; };
+		002A14EE1BEEC81F007288F6 /* ListedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListedCell.swift; sourceTree = "<group>"; };
 		002A14F01BEED024007288F6 /* PickConditionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickConditionViewController.swift; sourceTree = "<group>"; };
 		002A14F41BEEE2C1007288F6 /* PickCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -588,6 +588,7 @@
 				002A148B1BEE7905007288F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		002A148C1BEE7905007288F6 /* Build configuration list for PBXNativeTarget "Need&GiveTests" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +597,7 @@
 				002A148E1BEE7905007288F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		002A148F1BEE7905007288F6 /* Build configuration list for PBXNativeTarget "Need&GiveUITests" */ = {
 			isa = XCConfigurationList;
@@ -604,6 +606,7 @@
 				002A14911BEE7905007288F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
