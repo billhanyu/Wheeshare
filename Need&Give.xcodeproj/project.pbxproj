@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0019028F1BEF12F50002C20C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0019028E1BEF12F50002C20C /* DetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14641BEE7905007288F6 /* AppDelegate.swift */; };
 		002A14671BEE7905007288F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14661BEE7905007288F6 /* ViewController.swift */; };
 		002A146A1BEE7905007288F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002A14681BEE7905007288F6 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0019028E1BEF12F50002C20C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		002A14611BEE7905007288F6 /* Need&Give.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Need&Give.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		002A14641BEE7905007288F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		002A14661BEE7905007288F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				002A14641BEE7905007288F6 /* AppDelegate.swift */,
 				002A14661BEE7905007288F6 /* ViewController.swift */,
 				002A14681BEE7905007288F6 /* Main.storyboard */,
+				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
 				002A14F01BEED024007288F6 /* PickConditionViewController.swift */,
 				002A14F41BEEE2C1007288F6 /* PickCategoryViewController.swift */,
 				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
@@ -356,6 +359,7 @@
 				002A14F51BEEE2C1007288F6 /* PickCategoryViewController.swift in Sources */,
 				002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */,
 				002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */,
+				0019028F1BEF12F50002C20C /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

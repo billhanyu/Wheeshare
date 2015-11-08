@@ -25,16 +25,16 @@ class ListedCell: UITableViewCell {
         
         let imageFile = result["image"] as? PFFile
         if let imageFile = imageFile {
-        imageFile.getDataInBackgroundWithBlock {
-            (imageData: NSData?, error: NSError?) -> Void in
-            if error == nil {
-                if let imageData = imageData {
-                    let image = UIImage(data:imageData)
-                    self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
-                    self.givenImageView.image = image
+            imageFile.getDataInBackgroundWithBlock {
+                (imageData: NSData?, error: NSError?) -> Void in
+                if error == nil {
+                    if let imageData = imageData {
+                        let image = UIImage(data:imageData)
+                        self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
+                        self.givenImageView.image = image
+                    }
                 }
             }
-        }
         }
     }
 }
