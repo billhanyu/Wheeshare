@@ -36,7 +36,12 @@ class GiveViewController: UITableViewController {
         conditionLabel.text = conditionName
     }
     
-    @IBAction func Done(sender: AnyObject) {
+    func hud() {
+        let hudView = HudView.hudInView(navigationController!.view, animated: true)
+        hudView.text = "Given!"
+        afterDelay(0.6, closure: {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -77,6 +82,7 @@ class GiveViewController: UITableViewController {
             controller.categoryName = categoryName
         }
         if segue.identifier == "Given" {
+            
             var imageFile: PFFile?
             if let image = image {
                 let imageData = UIImagePNGRepresentation(image)
@@ -102,6 +108,7 @@ class GiveViewController: UITableViewController {
                     print("Given object info saving failure")
                 }
             }
+            
         }
     }
     

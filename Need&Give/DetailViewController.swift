@@ -32,7 +32,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func mail(sender: AnyObject) {
         mailAddress = emailButton.titleLabel?.text
-        if let mailAddress = mailAddress {
+        if let _ = mailAddress {
             let mailComposeViewController = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
                 self.presentViewController(mailComposeViewController, animated: true, completion: nil)
