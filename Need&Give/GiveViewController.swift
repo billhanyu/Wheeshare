@@ -34,6 +34,22 @@ class GiveViewController: UITableViewController {
         detail.frame = frameRect;
         categoryLabel.text = categoryName
         conditionLabel.text = conditionName
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
+        gestureRecognizer.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func hideKeyboard(gestureRecognizer: UIGestureRecognizer) {
+        let point = gestureRecognizer.locationInView(tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(point)
+        
+        if indexPath != nil && indexPath!.section == 0 && indexPath!.row == 0
+        {
+            return
+        }
+        
+        name.resignFirstResponder()
     }
     
     func hud() {
@@ -45,6 +61,9 @@ class GiveViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            name.becomeFirstResponder()
+        }
         if indexPath.section == 0 && indexPath.row == 3 {
             takePhotoWithCamera()
         }
@@ -65,11 +84,20 @@ class GiveViewController: UITableViewController {
         return 44
     }
     
+    @IBOutlet weak var imageLeadingMargin: NSLayoutConstraint!
+    @IBOutlet weak var imageCenterY: NSLayoutConstraint!
+    @IBOutlet weak var imageTop: NSLayoutConstraint!
+    @IBOutlet weak var imageRatio: NSLayoutConstraint!
+    
     func showImage(image: UIImage) {
         imageSelected.image = image
         imageSelected.hidden = false
-        imageSelected.frame = CGRect(x: 15, y: 10, width: 260, height: 260)
+        imageLeadingMargin.constant = 8
+        imageTop.constant = 11
+        imageCenterY.active = false
+        imageRatio.constant = 1
         addPhotoLabel.hidden = true
+        view.layoutIfNeeded()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -128,7 +156,7 @@ class GiveViewController: UITableViewController {
 extension GiveViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func takePhotoWithCamera() {
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .Camera
+        imagePicker.sourceType = .PhotoLibrary
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         presentViewController(imagePicker, animated: true, completion: nil)
