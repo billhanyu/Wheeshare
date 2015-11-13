@@ -82,9 +82,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         phoneButton.setTitle(post["phoneNumber"] as? String, forState: UIControlState.Normal)
         let modelName = UIDevice.currentDevice().modelName
         print(modelName)
-        if modelName == "iPhone 6" || modelName == "iPhone 6s" || modelName == "Simulator" {
-            imageView.frame = CGRect(x: 72.5, y: 142, width: 230, height: 230)
-        }
         let imageFile = post["image"] as? PFFile
         if let imageFile = imageFile {
             imageFile.getDataInBackgroundWithBlock {
