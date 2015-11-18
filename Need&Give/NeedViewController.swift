@@ -88,6 +88,7 @@ class NeedViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "detailReveal" {
             let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
+            self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForCell(sender as! UITableViewCell)!, animated: true)
             let controller = segue.destinationViewController as! DetailViewController
             controller.post = postArr[(selectedIndex?.row)!]
         }
