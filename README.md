@@ -1,14 +1,11 @@
 # Wheeshare
-A project to fight poverty, built in HackDuke event
+Promote sharing among Duke students.
 
 Team:
-Yuansong Feng, Ruochen Hao, Yuxiang He, Han Yu
+Han Yu, Yuansong Feng, Ruochen Hao, Yuxiang He
 
 iOS Developer:
 Han Yu
-
-Web Developer:
-Yuansong Feng, Ruochen Hao, Yuxiang He
 
 Special Thanks to:
 Zhe Wang, Duke University Class of 2017
