@@ -12,19 +12,17 @@ import Bolts
 
 class NeedViewController: UITableViewController {
     var refresher:UIRefreshControl!
-    var postArr:[PFObject] = []
+    var postArr: [PFObject] = []
+    var givenItems: [GivenItem] = []
+    
     var selectRow: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initUI()
         refreshSelector()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.reloadData()
     }
     
     func initUI() {
@@ -46,13 +44,18 @@ class NeedViewController: UITableViewController {
         query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
             self.refresher.endRefreshing()
             if (error == nil) {
-                self.postArr.removeAll()
-                for re in result! {
-                    self.postArr.append(re)
+                self.givenItems.removeAll()
+                for given in result! {
+                    let givenItem = GivenItem.configureWithPFObject(given)
+                    self.givenItems.append(givenItem)
                 }
-                self.tableView.reloadData()
-            }else{
-                print("gg")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            }
+            else {
+                print("failed to download data")
             }
         }
     }
@@ -65,14 +68,13 @@ class NeedViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postArr.count
+        return givenItems.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
-        cell.initWithResult(postArr[indexPath.row])
-
+        cell.initWithResult(givenItems[indexPath.row])
         return cell
     }
     
@@ -82,7 +84,6 @@ class NeedViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectRow = indexPath.row
-        print(selectRow)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -90,7 +91,7 @@ class NeedViewController: UITableViewController {
             let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForCell(sender as! UITableViewCell)!, animated: true)
             let controller = segue.destinationViewController as! DetailViewController
-            controller.post = postArr[(selectedIndex?.row)!]
+            controller.item = givenItems[(selectedIndex?.row)!]
         }
     }
 }

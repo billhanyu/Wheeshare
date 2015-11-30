@@ -21,7 +21,6 @@ class PickConditionViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(conditionName)
         check()
     }
     
@@ -78,7 +77,7 @@ class PickConditionViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "pickedCondition" {
+        if segue.identifier == "PickedCondition" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPathForCell(cell) {
                 conditionName = conditions[indexPath.row]

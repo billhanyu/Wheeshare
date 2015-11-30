@@ -9,7 +9,7 @@
 import UIKit
 
 class PickCategoryViewController: UITableViewController {
-
+    
     let categories:[String] = [
         "Electronics",
         "Life Essentials",
@@ -49,7 +49,7 @@ class PickCategoryViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell", forIndexPath: indexPath)
         let tempName = categories[indexPath.row]
         cell.textLabel!.text = tempName
         if tempName == categoryName {
@@ -76,7 +76,7 @@ class PickCategoryViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "pickedCategory" {
+        if segue.identifier == "PickedCategory" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPathForCell(cell) {
                 categoryName = categories[indexPath.row]

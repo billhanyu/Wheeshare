@@ -40,6 +40,7 @@
 		003BB0FB1BEFC9AF00FF1858 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FA1BEFC9AF00FF1858 /* HudView.swift */; };
 		003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FC1BEFCAF400FF1858 /* Functions.swift */; };
 		00FEF0541C0CDC5D00A1C18A /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */; };
+		00FEF0561C0CEC0800A1C18A /* GivenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0551C0CEC0800A1C18A /* GivenItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		003BB0FA1BEFC9AF00FF1858 /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		003BB0FC1BEFCAF400FF1858 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
+		00FEF0551C0CEC0800A1C18A /* GivenItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GivenItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
 				003BB0FC1BEFCAF400FF1858 /* Functions.swift */,
 				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
+				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
 				003BB0FA1BEFC9AF00FF1858 /* HudView.swift */,
 				002A14701BEE7905007288F6 /* Info.plist */,
 				002A146D1BEE7905007288F6 /* LaunchScreen.storyboard */,
@@ -363,6 +366,7 @@
 			files = (
 				002A14671BEE7905007288F6 /* ViewController.swift in Sources */,
 				002A14F11BEED024007288F6 /* PickConditionViewController.swift in Sources */,
+				00FEF0561C0CEC0800A1C18A /* GivenItem.swift in Sources */,
 				002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */,
 				003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */,
 				002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */,

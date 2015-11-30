@@ -192,7 +192,7 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
-                                            <segue destination="Yhi-Bm-Qur" kind="presentation" identifier="pickCategory" id="eaY-vB-E2l"/>
+                                            <segue destination="WW1-ZD-SM2" kind="presentation" identifier="PickCategory" id="gWJ-rO-hUR"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="88" id="Cn7-sE-1Sa">
@@ -338,7 +338,7 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
-                                            <segue destination="mdQ-hl-s6a" kind="presentation" identifier="pickCondition" id="QFs-WP-Mt6"/>
+                                            <segue destination="McR-zl-wNc" kind="presentation" identifier="PickCondition" id="QFs-WP-Mt6"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="GMC-LD-4pV">
@@ -591,56 +591,6 @@
             </objects>
             <point key="canvasLocation" x="2039.25" y="776.5"/>
         </scene>
-        <!--Pick Category View Controller-->
-        <scene sceneID="l04-Pb-viQ">
-            <objects>
-                <tableViewController id="Yhi-Bm-Qur" customClass="PickCategoryViewController" customModule="Need_Give" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="irT-2G-uqD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="7qv-Wv-v6R">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <items>
-                                <navigationItem id="bwL-Aw-NCm">
-                                    <barButtonItem key="leftBarButtonItem" title="cancel" id="doM-oB-vCD">
-                                        <connections>
-                                            <action selector="cancel:" destination="Yhi-Bm-Qur" id="McW-vL-3z4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="jWZ-cS-slL">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jWZ-cS-slL" id="syZ-Jm-aHP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
-                                </tableViewCellContentView>
-                                <animations/>
-                                <connections>
-                                    <segue destination="GxM-3G-h7B" kind="unwind" identifier="pickedCategory" unwindAction="categoryPickerDidPickCategory:" id="i04-gP-qnA"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Yhi-Bm-Qur" id="fGI-9M-zzg"/>
-                            <outlet property="delegate" destination="Yhi-Bm-Qur" id="rMb-8b-qwt"/>
-                        </connections>
-                    </tableView>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L85-tr-qiX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="GxM-3G-h7B" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3052.5" y="378.16901408450701"/>
-        </scene>
         <!--Detail View Controller-->
         <scene sceneID="wEF-eK-l9P">
             <objects>
@@ -820,7 +770,7 @@
             </objects>
             <point key="canvasLocation" x="3051.75" y="-530.5"/>
         </scene>
-        <!--Condition-->
+        <!--Pick Condition View Controller-->
         <scene sceneID="v6C-vU-1GP">
             <objects>
                 <tableViewController id="mdQ-hl-s6a" customClass="PickConditionViewController" customModule="Need_Give" customModuleProvider="target" sceneMemberID="viewController">
@@ -829,20 +779,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="iBj-nd-wG8">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <items>
-                                <navigationItem id="0su-Dz-Fec">
-                                    <barButtonItem key="leftBarButtonItem" title="cancel" id="HuU-Fe-soB">
-                                        <connections>
-                                            <action selector="cancel:" destination="mdQ-hl-s6a" id="IWR-MN-3AI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="conditionCell" id="Hvl-XC-7UO">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
@@ -871,7 +807,7 @@
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
-                                    <segue destination="Rac-PF-gJX" kind="unwind" identifier="pickedCondition" unwindAction="conditionPickerDidPickCategory:" id="4Ly-cA-eNK"/>
+                                    <segue destination="Rac-PF-gJX" kind="unwind" identifier="PickedCondition" unwindAction="conditionPickerDidPickCategory:" id="4Ly-cA-eNK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -880,16 +816,19 @@
                             <outlet property="delegate" destination="mdQ-hl-s6a" id="dVX-EE-os0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Condition" id="MqF-Q6-owL">
-                        <barButtonItem key="leftBarButtonItem" title="cancel" id="IEx-QE-0w9"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="Afc-hc-VB2"/>
+                    <navigationItem key="navigationItem" id="MqF-Q6-owL">
+                        <barButtonItem key="leftBarButtonItem" title="cancel" id="IEx-QE-0w9">
+                            <connections>
+                                <action selector="cancel:" destination="mdQ-hl-s6a" id="i63-rz-3vS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmG-Lm-UJj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Rac-PF-gJX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3052.5" y="1224.2957746478871"/>
+            <point key="canvasLocation" x="3932.25" y="1223.5"/>
         </scene>
         <!--I Need-->
         <scene sceneID="TGz-eO-6wB">
@@ -908,23 +847,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="88.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-ix-oUJ">
-                                            <rect key="frame" x="15" y="0.0" width="80" height="80"/>
-                                            <animations/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="3uH-ix-oUJ" secondAttribute="height" multiplier="1:1" id="weM-Du-tQv"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="weM-Du-tQv"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="weM-Du-tQv"/>
-                                                </mask>
-                                            </variation>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mN-S1-b1D">
                                             <rect key="frame" x="103" y="8" width="303" height="21"/>
                                             <animations/>
@@ -946,6 +868,23 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-ix-oUJ">
+                                            <rect key="frame" x="15" y="0.0" width="80" height="80"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="3uH-ix-oUJ" secondAttribute="height" multiplier="1:1" id="weM-Du-tQv"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="weM-Du-tQv"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="weM-Du-tQv"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
@@ -1008,6 +947,46 @@
             </objects>
             <point key="canvasLocation" x="2040" y="-136.26760563380282"/>
         </scene>
+        <!--Pick Category View Controller-->
+        <scene sceneID="eFc-h7-Cpt">
+            <objects>
+                <tableViewController id="ZNh-Ml-sRG" customClass="PickCategoryViewController" customModule="Need_Give" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="syN-qG-eEE">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="o8u-7s-vl9">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o8u-7s-vl9" id="y91-HW-g2V">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <segue destination="avx-uW-N01" kind="unwind" identifier="PickedCategory" unwindAction="categoryPickerDidPickCategory:" id="6ul-Nx-0m5"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZNh-Ml-sRG" id="jmO-HL-Z1h"/>
+                            <outlet property="delegate" destination="ZNh-Ml-sRG" id="9jM-yy-mnG"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Crj-R3-1qn">
+                        <barButtonItem key="leftBarButtonItem" title="cancel" id="7Yd-sw-mhs">
+                            <connections>
+                                <action selector="cancel:" destination="ZNh-Ml-sRG" id="W5b-tC-5DO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0na-KO-YNG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="avx-uW-N01" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3932.25" y="411.5"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="XX3-4c-cW5">
             <objects>
@@ -1027,6 +1006,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDy-fs-MGG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.875" y="336.97183098591546"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="crm-nR-X1p">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="biY-Iu-t1L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WW1-ZD-SM2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jB9-kK-Esm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZNh-Ml-sRG" kind="relationship" relationship="rootViewController" id="GJn-eA-oPp"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="3051.75" y="411.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="f0x-ge-diI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="McR-zl-wNc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iOK-Jd-1sS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mdQ-hl-s6a" kind="relationship" relationship="rootViewController" id="aur-Pd-OOQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EwX-wQ-UFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3051.75" y="1223.5"/>
         </scene>
     </scenes>
 </document>

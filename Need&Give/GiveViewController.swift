@@ -102,12 +102,12 @@ class GiveViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "pickCondition" {
-            let controller = segue.destinationViewController as! PickConditionViewController
+        if segue.identifier == "PickCondition" {
+            let controller = segue.destinationViewController.childViewControllers[0] as! PickConditionViewController
             controller.conditionName = conditionName
         }
-        if segue.identifier == "pickCategory" {
-            let controller = segue.destinationViewController as! PickCategoryViewController
+        if segue.identifier == "PickCategory" {
+            let controller = segue.destinationViewController.childViewControllers[0] as! PickCategoryViewController
             controller.categoryName = categoryName
         }
         if segue.identifier == "Given" {
