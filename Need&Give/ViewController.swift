@@ -9,8 +9,11 @@
 import UIKit
 import Parse
 import Bolts
+import CoreData
 
 class ViewController: UIViewController {
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()

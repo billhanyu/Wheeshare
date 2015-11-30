@@ -114,8 +114,8 @@ class GiveViewController: UITableViewController {
             
             var imageFile: PFFile?
             if let image = image {
-                let imageData = UIImagePNGRepresentation(image)
-                imageFile = PFFile(name:"image.png", data:imageData!)
+                let imageData = image.mediumQualityJPEGNSData
+                imageFile = PFFile(name:"image.png", data:imageData)
             }
             let given = PFObject(className:"Needs")
             given["Name"] = name.text

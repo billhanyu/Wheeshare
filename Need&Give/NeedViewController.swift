@@ -42,7 +42,7 @@ class NeedViewController: UITableViewController {
     func refreshSelector() {
         let query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
-        //Throw a query to the server, note it'll run in background, and when the data is ready, the code inside this query will be called to update UI
+        
         query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
             self.refresher.endRefreshing()
             if (error == nil) {
