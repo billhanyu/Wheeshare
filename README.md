@@ -1,5 +1,5 @@
 # Wheeshare
-Promote sharing among Duke students.
+A Duke Innovation Co-Lab funded project to promote sharing among Duke students.
 
 Team:
 Han Yu, Yuansong Feng, Ruochen Hao, Yuxiang He
