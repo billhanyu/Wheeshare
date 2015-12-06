@@ -17,7 +17,6 @@ class ViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addBackground()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,24 +44,6 @@ class ViewController: UITabBarController {
     }
     
     @IBAction func GiverDidGive(segue: UIStoryboardSegue) {
-    }
-
-}
-
-extension UIView {
-    func addBackground() {
-        // screen width and height:
-        let width = UIScreen.mainScreen().bounds.size.width
-        let height = UIScreen.mainScreen().bounds.size.height
-        
-        let imageViewBackground = UIImageView(frame: CGRectMake(0, 0, width, height))
-        imageViewBackground.image = UIImage(named: "MainBackground")
-        
-        // you can change the content mode:
-        imageViewBackground.contentMode = UIViewContentMode.ScaleAspectFill
-        
-        self.addSubview(imageViewBackground)
-        self.sendSubviewToBack(imageViewBackground)
     }
 }
 

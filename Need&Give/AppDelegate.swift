@@ -34,12 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func customizeColor() {
-        let navColor = UIColor(red: 20/255, green: 41/255, blue: 97/255, alpha: 1)
-        let tabColor = UIColor(red: 86/255, green: 150/255, blue: 192/255, alpha: 1)
+        let navColor = UIColor(red: 22/255, green: 154/255, blue: 140/255, alpha: 1)
+        let tabColor = UIColor(red: 72/255, green: 212/255, blue: 198/255, alpha: 1)
         window!.tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = navColor
         UITabBar.appearance().barTintColor = tabColor
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.grayColor()], forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.darkGrayColor()], forState: .Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
     }
     
