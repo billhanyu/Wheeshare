@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Need&amp;Give.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "002A14741BEE7905007288F6"
+               BuildableName = "Need&amp;GiveTests.xctest"
+               BlueprintName = "Need&amp;GiveTests"
+               ReferencedContainer = "container:Need&amp;Give.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "002A147F1BEE7905007288F6"
+               BuildableName = "Need&amp;GiveUITests.xctest"
+               BlueprintName = "Need&amp;GiveUITests"
+               ReferencedContainer = "container:Need&amp;Give.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,26 +56,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "002A14741BEE7905007288F6"
-               BuildableName = "Need&amp;GiveTests.xctest"
-               BlueprintName = "Need&amp;GiveTests"
-               ReferencedContainer = "container:Need&amp;Give.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "002A147F1BEE7905007288F6"
-               BuildableName = "Need&amp;GiveUITests.xctest"
-               BlueprintName = "Need&amp;GiveUITests"
-               ReferencedContainer = "container:Need&amp;Give.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
