@@ -20,12 +20,15 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var organizationLabel: UILabel!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     var item: GivenItem!
     var mailAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationBar.delegate = self
         updateUI()
         // Do any additional setup after loading the view.
     }
@@ -73,8 +76,13 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         }
     }
     
+    @IBAction func onClickDone(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func updateUI() {
-        nameLabel.text = item.name
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationBar.topItem?.title = item.name
         categoryNameLabel.text = item.category
         contentLabel.text = item.detail
         organizationLabel.text = item.organization
@@ -83,4 +91,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         imageView.image = item.image
     }
 
+}
+
+extension DetailViewController: UINavigationBarDelegate {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
 }

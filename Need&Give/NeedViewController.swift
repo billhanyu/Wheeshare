@@ -10,15 +10,21 @@ import UIKit
 import Parse
 import Bolts
 
-class NeedViewController: UITableViewController {
+class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refresher:UIRefreshControl!
     var postArr: [PFObject] = []
     var givenItems: [GivenItem] = []
     
     var selectRow: Int!
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        navigationBar.delegate = self
         
         initUI()
         refreshSelector()
@@ -30,6 +36,8 @@ class NeedViewController: UITableViewController {
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         //init pull-to-refresh
         refresher = UIRefreshControl()
@@ -62,36 +70,42 @@ class NeedViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return givenItems.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
         cell.initWithResult(givenItems[indexPath.row])
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectRow = indexPath.row
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "detailReveal" {
+        if segue.identifier == "DetailReveal" {
             let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForCell(sender as! UITableViewCell)!, animated: true)
             let controller = segue.destinationViewController as! DetailViewController
             controller.item = givenItems[(selectedIndex?.row)!]
         }
+    }
+}
+
+extension NeedViewController: UINavigationBarDelegate {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
     }
 }

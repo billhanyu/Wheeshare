@@ -11,7 +11,7 @@ import Parse
 import Bolts
 import CoreData
 
-class ViewController: UIViewController {
+class ViewController: UITabBarController {
     
     var managedObjectContext: NSManagedObjectContext!
     

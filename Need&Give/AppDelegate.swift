@@ -28,7 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        
+        customizeColor()
         return true
+    }
+    
+    func customizeColor() {
+        let navColor = UIColor(red: 20/255, green: 41/255, blue: 97/255, alpha: 1)
+        let tabColor = UIColor(red: 86/255, green: 150/255, blue: 192/255, alpha: 1)
+        window!.tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = navColor
+        UITabBar.appearance().barTintColor = tabColor
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.grayColor()], forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

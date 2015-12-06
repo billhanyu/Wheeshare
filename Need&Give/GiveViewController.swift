@@ -29,11 +29,14 @@ class GiveViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         var frameRect: CGRect = detail.frame;
         frameRect.size.height = 75;
         detail.frame = frameRect;
         categoryLabel.text = categoryName
         conditionLabel.text = conditionName
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
@@ -53,20 +56,25 @@ class GiveViewController: UITableViewController {
     }
     
     func hud() {
-        let hudView = HudView.hudInView(navigationController!.view, animated: true)
+        print("supposed to be showing hud")
+        
+        let hudView = HudView.hudInView(self.view, animated: true)
         hudView.text = "Given!"
         afterDelay(0.6, closure: {
+            print("delaying")
             self.dismissViewControllerAnimated(true, completion: nil)
         })
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
             name.becomeFirstResponder()
-        }
-        if indexPath.section == 0 && indexPath.row == 3 {
+        case (0, 3):
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             pickPhoto()
+        default:
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
     
@@ -111,6 +119,10 @@ class GiveViewController: UITableViewController {
             controller.categoryName = categoryName
         }
         if segue.identifier == "Given" {
+            /*
+            dispatch_async(dispatch_get_main_queue()) {
+                self.hud()
+            }*/
             
             var imageFile: PFFile?
             if let image = image {
@@ -137,7 +149,6 @@ class GiveViewController: UITableViewController {
                     print("Given object info saving failure")
                 }
             }
-            
         }
     }
     
