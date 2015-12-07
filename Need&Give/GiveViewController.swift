@@ -36,8 +36,6 @@ class GiveViewController: UITableViewController {
         categoryLabel.text = categoryName
         conditionLabel.text = conditionName
         
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
@@ -217,6 +215,8 @@ extension GiveViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         let chooseFromLibraryAction = UIAlertAction(title: "Choose From Library", style: .Default, handler: {_ in self.choosePhotoFromLibrary()})
         alertController.addAction(chooseFromLibraryAction)
+        
+        alertController.view.tintColor = UIColor.blackColor()
         
         presentViewController(alertController, animated: true, completion: nil)
     }

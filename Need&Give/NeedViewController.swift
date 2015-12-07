@@ -10,9 +10,10 @@ import UIKit
 import Parse
 import Bolts
 
+typealias DownloadComplete = (Bool) -> Void
+
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refresher:UIRefreshControl!
-    var postArr: [PFObject] = []
     var givenItems: [GivenItem] = []
     
     var selectRow: Int!
@@ -28,7 +29,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         initUI()
         refreshSelector()
-        tableView.reloadData()
     }
     
     func initUI() {
@@ -37,8 +37,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        
         //init pull-to-refresh
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: Selector("refreshSelector"), forControlEvents: UIControlEvents.ValueChanged)
@@ -46,26 +44,52 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func refreshSelector() {
+        getData({ success in
+            if !success {
+                self.showNetworkError()
+            }
+            else {
+                self.refresher.endRefreshing()
+                self.tableView.reloadData()
+            }
+        })
+        //tableView.reloadData()
+    }
+    
+    func getData(completion: DownloadComplete) {
         let query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
         
+        var success = false
+        
         query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
-            self.refresher.endRefreshing()
             if (error == nil) {
                 self.givenItems.removeAll()
                 for given in result! {
                     let givenItem = GivenItem.configureWithPFObject(given)
                     self.givenItems.append(givenItem)
                 }
-                
+                success = true
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
+                    completion(success)
                 })
             }
             else {
-                print("failed to download data")
+                print(error)
             }
         }
+    }
+    
+    func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Whoops...",
+            message: "There was an error reading from the iTunes Store. Please try again.",
+            preferredStyle: .Alert)
+        
+        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(action)
+        
+        presentViewController(alert, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source

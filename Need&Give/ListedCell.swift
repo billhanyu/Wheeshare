@@ -18,8 +18,6 @@ class ListedCell: UITableViewCell {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var organization: UILabel!
     
-    var imageDownloaded: UIImage?
-    
     func initWithResult(result: GivenItem!) {
         dispatch_async(dispatch_get_main_queue(), {
             self.givenName.text = result.name
@@ -28,5 +26,14 @@ class ListedCell: UITableViewCell {
             self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
             self.givenImageView.image = result.image
         })
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        givenName.text = nil
+        location.text = nil
+        organization.text = nil
+        givenImageView.image = nil
     }
 }
