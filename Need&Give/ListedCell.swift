@@ -18,7 +18,7 @@ class ListedCell: UITableViewCell {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var organization: UILabel!
     
-    func initWithResult(result: GivenItem!) {
+    func initWithResult(result: GivenItem) {
         dispatch_async(dispatch_get_main_queue(), {
             self.givenName.text = result.name
             self.location.text = result.location

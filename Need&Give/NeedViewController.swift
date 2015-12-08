@@ -29,6 +29,13 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         initUI()
         refreshSelector()
+        print(givenItems.count)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        refreshSelector()
+        print(givenItems.count)
     }
     
     func initUI() {
@@ -44,40 +51,28 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func refreshSelector() {
-        getData({ success in
-            if !success {
-                self.showNetworkError()
-            }
-            else {
-                self.refresher.endRefreshing()
-                self.tableView.reloadData()
-            }
-        })
-        //tableView.reloadData()
-    }
-    
-    func getData(completion: DownloadComplete) {
         let query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
-        
-        var success = false
         
         query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
             if (error == nil) {
                 self.givenItems.removeAll()
                 for given in result! {
-                    let givenItem = GivenItem.configureWithPFObject(given)
-                    self.givenItems.append(givenItem)
+                    self.givenItems.append(GivenItem.configureWithPFObject(given))
                 }
-                success = true
-                dispatch_async(dispatch_get_main_queue(), {
-                    completion(success)
-                })
+                self.refresher.endRefreshing()
+                self.tableView.reloadData()
             }
             else {
                 print(error)
+                return
             }
         }
+        /*
+        dispatch_async(dispatch_get_main_queue(), {
+            self.refresher.endRefreshing()
+            self.tableView.reloadData()
+        })*/
     }
     
     func showNetworkError() {

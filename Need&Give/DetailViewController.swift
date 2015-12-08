@@ -27,7 +27,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationBar.delegate = self
         updateUI()
         // Do any additional setup after loading the view.
