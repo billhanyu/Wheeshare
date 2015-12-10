@@ -7,11 +7,26 @@
 //
 
 import UIKit
+import Parse
 
 class UserViewController: UITableViewController {
-
+    
+    var user: PFUser?
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var profilePic: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        user = PFUser.currentUser()
+        initUI()
+    }
+    
+    func initUI() {
+        nameLabel.text = user?.username!
+        emailLabel.text = user?.email!
+        //set profile picture
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,13 +53,9 @@ class UserViewController: UITableViewController {
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
         return cell
-    }
-    */
+    }*/
 
     /*
     // Override to support conditional editing of the table view.

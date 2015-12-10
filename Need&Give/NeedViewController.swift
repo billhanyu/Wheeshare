@@ -14,7 +14,7 @@ typealias DownloadComplete = (Bool) -> Void
 
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refresher:UIRefreshControl!
-    var givenItems: [GivenItem] = []
+    var givenItems: [PFObject] = []
     
     var selectRow: Int!
     
@@ -29,13 +29,11 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         initUI()
         refreshSelector()
-        print(givenItems.count)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(true)
-        refreshSelector()
-        print(givenItems.count)
+        //refreshSelector()
     }
     
     func initUI() {
@@ -58,7 +56,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if (error == nil) {
                 self.givenItems.removeAll()
                 for given in result! {
-                    self.givenItems.append(GivenItem.configureWithPFObject(given))
+                    self.givenItems.append(given)
                 }
                 self.refresher.endRefreshing()
                 self.tableView.reloadData()

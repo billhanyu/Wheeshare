@@ -17,12 +17,11 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var organizationLabel: UILabel!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var navigationBar: UINavigationBar!
     
-    var item: GivenItem!
+    var item: PFObject!
     var mailAddress: String?
     
     override func viewDidLoad() {
@@ -81,13 +80,25 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     func updateUI() {
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationBar.topItem?.title = item.name
-        categoryNameLabel.text = item.category
-        contentLabel.text = item.detail
-        organizationLabel.text = item.organization
-        emailButton.setTitle(item.mailAddress, forState: .Normal)
-        phoneButton.setTitle(item.phoneNumber, forState: .Normal)
-        imageView.image = item.image
+        navigationBar.topItem?.title = item["name"] as! String?
+        categoryNameLabel.text = item["category"] as! String?
+        contentLabel.text = item["detail"] as! String?
+        emailButton.setTitle(item["mailAddress"] as! String?, forState: .Normal)
+        phoneButton.setTitle(item["phoneNumber"] as! String?, forState: .Normal)
+        let imageFile = item["image"] as? PFFile
+        
+        if let imageFile = imageFile {
+            imageFile.getDataInBackgroundWithBlock {
+                (imageData: NSData?, error: NSError?) -> Void in
+                if error == nil {
+                    if let imageData = imageData {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.imageView.image = UIImage(data:imageData)
+                        })
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -30,6 +30,48 @@ class LoginViewController: UIViewController {
                 } else {
                     print("User logged in through Facebook!")
                 }
+                
+                let request = FBSDKGraphRequest(graphPath:"me", parameters:nil)
+                // Send request to Facebook
+                request.startWithCompletionHandler {
+                    (connection, result, error) in
+                    
+                    if error != nil {
+                        // Some error checking here
+                    }
+                    else if let userData = result as? [String:AnyObject] {
+                        
+                        let username = userData["name"] as? String
+                        if let username = username {
+                            user.username = username
+                        }
+                        
+                        let emailAddress = userData["email"] as? String
+                        if let emailAddress = emailAddress {
+                            user.email = emailAddress
+                        }
+                        
+                        let facebookID = userData["id"] as! String
+                        print(facebookID)
+                        let pictureURL = "https://graph.facebook.com/\(facebookID)/picture?width=320&height=320"
+                        
+                        let URLRequest = NSURL(string: pictureURL)
+                        let URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+                        
+                        NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+                            if error == nil {
+                                if let data = data {
+                                    let picture = PFFile(data: data)
+                                    user.setObject(picture!, forKey: "profilePicture")
+                                }
+                            }
+                            else {
+                                print("Error: \(error)")
+                            }
+                        })
+                        user.saveInBackground()
+                    }
+                }
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 print("Uh oh. The user cancelled the Facebook login.")

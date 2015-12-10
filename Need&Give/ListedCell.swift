@@ -18,14 +18,23 @@ class ListedCell: UITableViewCell {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var organization: UILabel!
     
-    func initWithResult(result: GivenItem) {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.givenName.text = result.name
-            self.location.text = result.location
-            self.organization.text = result.organization
-            self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
-            self.givenImageView.image = result.image
-        })
+    func initWithResult(result: PFObject) {
+        self.givenName.text = result["Name"] as! String?
+        self.location.text = result["location"] as! String?
+        self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
+        
+        let imageFile = result["image"] as? PFFile
+        
+        if let imageFile = imageFile {
+            imageFile.getDataInBackgroundWithBlock {
+                (imageData: NSData?, error: NSError?) -> Void in
+                if error == nil {
+                    if let imageData = imageData {
+                        self.givenImageView.image = UIImage(data:imageData)
+                    }
+                }
+            }
+        }
     }
     
     override func prepareForReuse() {
