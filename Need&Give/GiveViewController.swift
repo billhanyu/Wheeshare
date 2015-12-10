@@ -14,10 +14,6 @@ class GiveViewController: UITableViewController {
 
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var detail: UITextField!
-    @IBOutlet weak var location: UITextField!
-    @IBOutlet weak var organization: UITextField!
-    @IBOutlet weak var mailAddress: UITextField!
-    @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var addPhotoLabel: UILabel!
@@ -68,7 +64,7 @@ class GiveViewController: UITableViewController {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             name.becomeFirstResponder()
-        case (0, 3):
+        case (0, 4):
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             pickPhoto()
         default:
@@ -77,7 +73,7 @@ class GiveViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 3 {
+        if indexPath.section == 0 && indexPath.row == 4 {
             if imageSelected.hidden {
                 return 44
             }
@@ -130,12 +126,9 @@ class GiveViewController: UITableViewController {
             let given = PFObject(className:"Needs")
             given["Name"] = name.text
             given["detail"] = detail.text
-            given["location"] = location.text
-            given["organization"] = organization.text
-            given["mailAddress"] = mailAddress.text
-            given["phoneNumber"] = phoneNumber.text
             given["category"] = categoryLabel.text
             given["condition"] = conditionLabel.text
+            given["emailAddress"] = PFUser.currentUser()?.email
             if let imageFile = imageFile {
                 given["image"] = imageFile
             }

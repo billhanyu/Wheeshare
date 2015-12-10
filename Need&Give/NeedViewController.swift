@@ -33,7 +33,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(true)
-        //refreshSelector()
+        refreshSelector()
     }
     
     func initUI() {

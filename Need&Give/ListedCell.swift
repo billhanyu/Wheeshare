@@ -16,7 +16,6 @@ class ListedCell: UITableViewCell {
     @IBOutlet weak var givenImageView: UIImageView!
     @IBOutlet weak var givenName: UILabel!
     @IBOutlet weak var location: UILabel!
-    @IBOutlet weak var organization: UILabel!
     
     func initWithResult(result: PFObject) {
         self.givenName.text = result["Name"] as! String?
@@ -42,7 +41,6 @@ class ListedCell: UITableViewCell {
         
         givenName.text = nil
         location.text = nil
-        organization.text = nil
         givenImageView.image = nil
     }
 }
