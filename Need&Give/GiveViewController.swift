@@ -17,11 +17,10 @@ class GiveViewController: UITableViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var addPhotoLabel: UILabel!
-    @IBOutlet weak var conditionLabel: UILabel!
+    @IBOutlet weak var conditionSlider: UISlider!
     
     var image: UIImage?
     var categoryName = "Electronics"
-    var conditionName = "New"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +29,6 @@ class GiveViewController: UITableViewController {
         frameRect.size.height = 75;
         detail.frame = frameRect;
         categoryLabel.text = categoryName
-        conditionLabel.text = conditionName
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
@@ -84,6 +82,9 @@ class GiveViewController: UITableViewController {
         if indexPath.section == 0 && indexPath.row == 2 {
             return 88
         }
+        if indexPath.section == 0 && indexPath.row == 3 {
+            return 80
+        }
         return 44
     }
     
@@ -104,10 +105,6 @@ class GiveViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "PickCondition" {
-            let controller = segue.destinationViewController.childViewControllers[0] as! PickConditionViewController
-            controller.conditionName = conditionName
-        }
         if segue.identifier == "PickCategory" {
             let controller = segue.destinationViewController.childViewControllers[0] as! PickCategoryViewController
             controller.categoryName = categoryName
@@ -127,8 +124,21 @@ class GiveViewController: UITableViewController {
             given["Name"] = name.text
             given["detail"] = detail.text
             given["category"] = categoryLabel.text
-            given["condition"] = conditionLabel.text
             given["emailAddress"] = PFUser.currentUser()?.email
+            var conditionName = ""
+            if conditionSlider.value == 100 {
+                conditionName = "Perfect"
+            }
+            else if conditionSlider.value >= 90 {
+                conditionName = "Good"
+            }
+            else if conditionSlider.value >= 70 {
+                conditionName = "Fair"
+            }
+            else {
+                conditionName = "Old"
+            }
+            given["condition"] = conditionName
             if let imageFile = imageFile {
                 given["image"] = imageFile
             }
@@ -141,12 +151,6 @@ class GiveViewController: UITableViewController {
                 }
             }
         }
-    }
-    
-    @IBAction func conditionPickerDidPickCategory(segue: UIStoryboardSegue) {
-        let controller = segue.sourceViewController as! PickConditionViewController
-        conditionName = controller.conditionName
-        conditionLabel.text = conditionName
     }
     
     @IBAction func categoryPickerDidPickCategory(segue: UIStoryboardSegue) {
