@@ -61,8 +61,9 @@ class LoginViewController: UIViewController {
                         NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                             if error == nil {
                                 if let data = data {
-                                    let picture = PFFile(data: data)
-                                    user.setObject(picture!, forKey: "profilePicture")
+                                    let picture = PFFile(name: "profilePic.png", data: data)
+                                    user["profilePic"] = picture
+                                    user.saveInBackground()
                                 }
                             }
                             else {

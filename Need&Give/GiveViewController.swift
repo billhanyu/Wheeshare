@@ -124,7 +124,7 @@ class GiveViewController: UITableViewController {
             given["Name"] = name.text
             given["detail"] = detail.text
             given["category"] = categoryLabel.text
-            given["emailAddress"] = PFUser.currentUser()?.email
+            given["mailAddress"] = PFUser.currentUser()?.email
             var conditionName = ""
             if conditionSlider.value == 100 {
                 conditionName = "Perfect"

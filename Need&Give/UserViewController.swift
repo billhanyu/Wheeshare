@@ -26,7 +26,26 @@ class UserViewController: UITableViewController {
     func initUI() {
         nameLabel.text = user?.username!
         emailLabel.text = user?.email!
+        
         //set profile picture
+        let query = PFUser.query()
+        query?.getObjectInBackgroundWithId((user?.objectId)!, block: {
+            (person: PFObject?, error:NSError?) -> Void in
+            if let person = person {
+                let imageFile = person["profilePic"]
+            
+                if let imageFile = imageFile {
+                    imageFile.getDataInBackgroundWithBlock {
+                        (imageData: NSData?, error: NSError?) -> Void in
+                        if error == nil {
+                            if let imageData = imageData {
+                                self.profilePic.image = UIImage(data:imageData)
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
