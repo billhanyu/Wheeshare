@@ -16,6 +16,7 @@ class UserViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var telNumLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +25,22 @@ class UserViewController: UITableViewController {
     }
     
     func initUI() {
-        nameLabel.text = user?.username!
-        emailLabel.text = user?.email!
+        if let name = user?.username {
+            nameLabel.text = name
+        }
+        if let email = user?.email {
+            emailLabel.text = email
+        }
         
-        //set profile picture
+        // set profile picture & phone number
         let query = PFUser.query()
         query?.getObjectInBackgroundWithId((user?.objectId)!, block: {
             (person: PFObject?, error:NSError?) -> Void in
             if let person = person {
+                let telNum = person["telNum"] as? String
+                self.telNumLabel.text = telNum
+                
                 let imageFile = person["profilePic"]
-            
                 if let imageFile = imageFile {
                     imageFile.getDataInBackgroundWithBlock {
                         (imageData: NSData?, error: NSError?) -> Void in
@@ -47,6 +54,8 @@ class UserViewController: UITableViewController {
             }
         })
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,10 +72,28 @@ class UserViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
-        case 0: return 3
+        case 0: return 4
         case 1: return 2
         case 2: return 1
         default: return 1
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.section == 0 && indexPath.row == 3 {
+            let alert = UIAlertController(title: "Log Out", message: "Are you sure to log out?", preferredStyle: .Alert)
+            let cancel = UIAlertAction(title: "cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+            }
+            let logOut = UIAlertAction(title: "Log Out", style: .Default, handler: { (UIAlertAction) -> Void in
+                PFUser.logOutInBackgroundWithBlock({ (PFUserLogoutResultBlock) -> Void in
+                    let controller = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                })
+            })
+            alert.addAction(cancel)
+            alert.addAction(logOut)
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
 

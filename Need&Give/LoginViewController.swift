@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
                     print("User logged in through Facebook!")
                 }
                 
-                let request = FBSDKGraphRequest(graphPath:"me", parameters:nil)
+                let request = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"])
                 // Send request to Facebook
                 request.startWithCompletionHandler {
                     (connection, result, error) in
@@ -40,18 +40,20 @@ class LoginViewController: UIViewController {
                         // Some error checking here
                     }
                     else if let userData = result as? [String:AnyObject] {
-                        
+                        print(userData)
                         let username = userData["name"] as? String
                         if let username = username {
                             user.username = username
                         }
                         
                         let emailAddress = userData["email"] as? String
+                        print(emailAddress)
                         if let emailAddress = emailAddress {
                             user.email = emailAddress
                         }
                         
                         let facebookID = userData["id"] as! String
+                        user["FBID"] = facebookID
                         print(facebookID)
                         let pictureURL = "https://graph.facebook.com/\(facebookID)/picture?width=320&height=320"
                         

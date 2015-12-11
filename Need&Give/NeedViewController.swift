@@ -34,6 +34,35 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(true)
         refreshSelector()
+        if let _ = PFUser.currentUser() {
+            fillTelNumber()
+        }
+    }
+    
+    func fillTelNumber() {
+        let user = PFUser.currentUser()
+        
+        let query = PFUser.query()!
+        query.getObjectInBackgroundWithId((user?.objectId)!, block: {
+            (person: PFObject?, error:NSError?) -> Void in
+            if let person = person {
+                let telNum = person["telNum"]
+                
+                if telNum == nil {
+                    let alert = UIAlertController(title: "Telephone Number", message: "Please fill in telephone number as contact info :)", preferredStyle: .Alert)
+                    let confirm = UIAlertAction(title: "Confirm", style: .Default, handler: { (UIAlertAction) -> Void in
+                        let textField = alert.textFields![0] as UITextField
+                        person["telNum"] = textField.text
+                        person.saveInBackground()
+                    })
+                    let textField = UITextField()
+                    textField.keyboardType = .NumberPad
+                    alert.addTextFieldWithConfigurationHandler {(textField) -> Void in}
+                    alert.addAction(confirm)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+        })
     }
     
     func initUI() {

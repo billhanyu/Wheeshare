@@ -13,8 +13,6 @@ import CoreData
 
 class ViewController: UITabBarController {
     
-    var managedObjectContext: NSManagedObjectContext!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -25,7 +23,6 @@ class ViewController: UITabBarController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        
         if PFUser.currentUser() == nil {
             print("current user is nil")
             let controller = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController

@@ -880,11 +880,11 @@
                                                     <exclude reference="bb8-iQ-yHz"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="3Qg-cg-Vwz"/>
+                                                    <exclude reference="YG2-Rc-azX"/>
                                                     <exclude reference="4a0-Qk-iNn"/>
                                                     <exclude reference="lEs-Br-l6K"/>
                                                     <exclude reference="o6n-Lf-jNk"/>
-                                                    <exclude reference="3Qg-cg-Vwz"/>
-                                                    <exclude reference="YG2-Rc-azX"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -893,11 +893,11 @@
                                                     <include reference="bb8-iQ-yHz"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="3Qg-cg-Vwz"/>
+                                                    <include reference="YG2-Rc-azX"/>
                                                     <include reference="4a0-Qk-iNn"/>
                                                     <include reference="lEs-Br-l6K"/>
                                                     <include reference="o6n-Lf-jNk"/>
-                                                    <include reference="3Qg-cg-Vwz"/>
-                                                    <include reference="YG2-Rc-azX"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -920,7 +920,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="9848887839" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jjh-Zz-9TN">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tel Number" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jjh-Zz-9TN">
                                                     <rect key="frame" x="256.5" y="12" width="103.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -952,7 +952,7 @@
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="user@example.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9V-uO-oN0">
-                                                    <rect key="frame" x="224" y="12" width="136" height="20.5"/>
+                                                    <rect key="frame" x="209.5" y="12" width="150.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -962,6 +962,45 @@
                                                     </variation>
                                                 </label>
                                             </subviews>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="Zfi-hm-T4V">
+                                        <rect key="frame" x="0.0" y="257.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zfi-hm-T4V" id="X7O-pJ-kFf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waP-NJ-hrp">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="waP-NJ-hrp" firstAttribute="centerY" secondItem="X7O-pJ-kFf" secondAttribute="centerY" id="1yY-Kd-W6h"/>
+                                                <constraint firstItem="waP-NJ-hrp" firstAttribute="leading" secondItem="X7O-pJ-kFf" secondAttribute="leadingMargin" constant="7" id="20M-jr-Xde"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="waP-NJ-hrp"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="1yY-Kd-W6h"/>
+                                                    <exclude reference="20M-jr-Xde"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="waP-NJ-hrp"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="1yY-Kd-W6h"/>
+                                                    <include reference="20M-jr-Xde"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                     </tableViewCell>
@@ -1092,6 +1131,7 @@
                         <outlet property="emailLabel" destination="d9V-uO-oN0" id="RSV-Ni-lwF"/>
                         <outlet property="nameLabel" destination="bb8-iQ-yHz" id="Lm1-1f-srd"/>
                         <outlet property="profilePic" destination="kv7-5C-C00" id="chF-Ed-X6m"/>
+                        <outlet property="telNumLabel" destination="Jjh-Zz-9TN" id="SCx-GV-SHg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFd-2O-MGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
