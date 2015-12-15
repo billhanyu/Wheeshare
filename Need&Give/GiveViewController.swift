@@ -121,6 +121,7 @@ class GiveViewController: UITableViewController {
                 imageFile = PFFile(name:"image.png", data:imageData)
             }
             let given = PFObject(className:"Needs")
+            given["giver"] = PFUser.currentUser()
             given["Name"] = name.text
             given["detail"] = detail.text
             given["category"] = categoryLabel.text
