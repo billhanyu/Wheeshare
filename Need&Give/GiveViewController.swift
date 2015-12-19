@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import Bolts
 
-class GiveViewController: UITableViewController {
+class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var detail: UITextField!
@@ -19,8 +19,11 @@ class GiveViewController: UITableViewController {
     @IBOutlet weak var addPhotoLabel: UILabel!
     @IBOutlet weak var conditionSlider: UISlider!
     
+    var pickerView = UIPickerView()
+    let categories = ["Electronics", "Textbooks", "Toys", "Tools"]
+    var expand = false
+    
     var image: UIImage?
-    var categoryName = "Electronics"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +31,7 @@ class GiveViewController: UITableViewController {
         var frameRect: CGRect = detail.frame;
         frameRect.size.height = 75;
         detail.frame = frameRect;
-        categoryLabel.text = categoryName
+        pickerView.delegate = self
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
@@ -62,30 +65,38 @@ class GiveViewController: UITableViewController {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             name.becomeFirstResponder()
+        case (0, 1):
+            expand = true
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            cell?.contentView.addSubview(pickerView)
+            tableView.reloadData()
         case (0, 4):
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
             pickPhoto()
         default:
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            break
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 4 {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 1):
+            if expand {
+                return 200
+            }
+            return 44
+        case (0, 2):
+            return 88
+        case (0, 3):
+            return 80
+        case (0, 4):
             if imageSelected.hidden {
                 return 44
             }
-            else {
-                return 280
-            }
+            return 280
+        default:
+            return 44
         }
-        if indexPath.section == 0 && indexPath.row == 2 {
-            return 88
-        }
-        if indexPath.section == 0 && indexPath.row == 3 {
-            return 80
-        }
-        return 44
     }
     
     @IBOutlet weak var imageLeadingMargin: NSLayoutConstraint!
@@ -105,10 +116,6 @@ class GiveViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "PickCategory" {
-            let controller = segue.destinationViewController.childViewControllers[0] as! PickCategoryViewController
-            controller.categoryName = categoryName
-        }
         if segue.identifier == "Given" {
             /*
             dispatch_async(dispatch_get_main_queue()) {
@@ -154,10 +161,22 @@ class GiveViewController: UITableViewController {
         }
     }
     
-    @IBAction func categoryPickerDidPickCategory(segue: UIStoryboardSegue) {
-        let controller = segue.sourceViewController as! PickCategoryViewController
-        categoryName = controller.categoryName
-        categoryLabel.text = categoryName
+    // MARK: UIPickerView Delegate & DataSource
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryLabel.text = categories[row]
     }
 }
 

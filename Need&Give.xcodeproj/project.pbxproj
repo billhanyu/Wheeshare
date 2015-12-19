@@ -18,7 +18,6 @@
 		002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14981BEE83CE007288F6 /* NeedViewController.swift */; };
 		002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A149A1BEE847F007288F6 /* GiveViewController.swift */; };
 		002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14EE1BEEC81F007288F6 /* ListedCell.swift */; };
-		002A14F51BEEE2C1007288F6 /* PickCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14F41BEEE2C1007288F6 /* PickCategoryViewController.swift */; };
 		003BB0FB1BEFC9AF00FF1858 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FA1BEFC9AF00FF1858 /* HudView.swift */; };
 		003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FC1BEFCAF400FF1858 /* Functions.swift */; };
 		006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006B46FE1C14C1D000B24E4B /* UserViewController.swift */; };
@@ -83,7 +82,6 @@
 		002A14981BEE83CE007288F6 /* NeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedViewController.swift; sourceTree = "<group>"; };
 		002A149A1BEE847F007288F6 /* GiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiveViewController.swift; sourceTree = "<group>"; };
 		002A14EE1BEEC81F007288F6 /* ListedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListedCell.swift; sourceTree = "<group>"; };
-		002A14F41BEEE2C1007288F6 /* PickCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickCategoryViewController.swift; sourceTree = "<group>"; };
 		003BB0FA1BEFC9AF00FF1858 /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		003BB0FC1BEFCAF400FF1858 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		006B46FE1C14C1D000B24E4B /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 				00C795561C13CFF80080F4D4 /* LoginViewController.swift */,
 				002A14981BEE83CE007288F6 /* NeedViewController.swift */,
 				00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */,
-				002A14F41BEEE2C1007288F6 /* PickCategoryViewController.swift */,
 				002A14661BEE7905007288F6 /* ViewController.swift */,
 			);
 			path = "Need&Give";
@@ -389,7 +386,6 @@
 				002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */,
 				003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */,
 				002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */,
-				002A14F51BEEE2C1007288F6 /* PickCategoryViewController.swift in Sources */,
 				006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */,
 				002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */,
 				002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */,

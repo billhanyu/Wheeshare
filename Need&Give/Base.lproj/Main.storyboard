@@ -95,7 +95,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="irG-Qd-S7W">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="irG-Qd-S7W">
                                         <rect key="frame" x="0.0" y="108" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="irG-Qd-S7W" id="Mg6-yU-zup">
@@ -116,27 +116,26 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cHr-Ri-ggm" firstAttribute="centerY" secondItem="Mg6-yU-zup" secondAttribute="centerY" id="TgN-XV-5t8"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="cHr-Ri-ggm" secondAttribute="trailing" id="Ur3-Qw-7Uz"/>
-                                                <constraint firstItem="9DO-ZV-iMt" firstAttribute="centerY" secondItem="Mg6-yU-zup" secondAttribute="centerY" id="qIl-WW-Rrk"/>
+                                                <constraint firstItem="cHr-Ri-ggm" firstAttribute="baseline" secondItem="9DO-ZV-iMt" secondAttribute="baseline" id="3I0-vf-8C4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cHr-Ri-ggm" secondAttribute="trailing" constant="10" id="LRb-SF-KxJ"/>
+                                                <constraint firstItem="9DO-ZV-iMt" firstAttribute="top" secondItem="Mg6-yU-zup" secondAttribute="topMargin" constant="3" id="VFF-m9-bYs"/>
                                                 <constraint firstItem="9DO-ZV-iMt" firstAttribute="leading" secondItem="Mg6-yU-zup" secondAttribute="leadingMargin" constant="7" id="rPk-BJ-3Ho"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="qIl-WW-Rrk"/>
-                                                    <exclude reference="Ur3-Qw-7Uz"/>
+                                                    <exclude reference="VFF-m9-bYs"/>
+                                                    <exclude reference="3I0-vf-8C4"/>
+                                                    <exclude reference="LRb-SF-KxJ"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="qIl-WW-Rrk"/>
-                                                    <include reference="Ur3-Qw-7Uz"/>
+                                                    <include reference="VFF-m9-bYs"/>
+                                                    <include reference="3I0-vf-8C4"/>
+                                                    <include reference="LRb-SF-KxJ"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="WW1-ZD-SM2" kind="presentation" identifier="PickCategory" id="gWJ-rO-hUR"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="88" id="Cn7-sE-1Sa">
                                         <rect key="frame" x="0.0" y="152" width="375" height="88"/>
@@ -175,7 +174,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="80" id="7Mt-eL-W6U">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="80" id="7Mt-eL-W6U">
                                         <rect key="frame" x="0.0" y="240" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Mt-eL-W6U" id="y2v-2z-d3F">
@@ -193,6 +192,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="276" y="50" width="58" height="17"/>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Useless" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViW-D7-LSM">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -202,6 +204,9 @@
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="80" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="LJ9-hQ-KlO">
                                                     <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="79" y="42" width="184" height="31"/>
+                                                    </variation>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -696,46 +701,6 @@
             </objects>
             <point key="canvasLocation" x="-2441.25" y="-322.5"/>
         </scene>
-        <!--Pick Category View Controller-->
-        <scene sceneID="eFc-h7-Cpt">
-            <objects>
-                <tableViewController id="ZNh-Ml-sRG" customClass="PickCategoryViewController" customModule="Need_Give" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="syN-qG-eEE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="o8u-7s-vl9">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o8u-7s-vl9" id="y91-HW-g2V">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="avx-uW-N01" kind="unwind" identifier="PickedCategory" unwindAction="categoryPickerDidPickCategory:" id="6ul-Nx-0m5"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ZNh-Ml-sRG" id="jmO-HL-Z1h"/>
-                            <outlet property="delegate" destination="ZNh-Ml-sRG" id="9jM-yy-mnG"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="Crj-R3-1qn">
-                        <barButtonItem key="leftBarButtonItem" title="cancel" id="7Yd-sw-mhs">
-                            <connections>
-                                <action selector="cancel:" destination="ZNh-Ml-sRG" id="W5b-tC-5DO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0na-KO-YNG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="avx-uW-N01" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="-1034.25" y="428.5"/>
-        </scene>
         <!--Login View Controller-->
         <scene sceneID="k9E-fc-mdi">
             <objects>
@@ -757,7 +722,6 @@
                                 <state key="normal" title="Log in" image="Facebook">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <variation key="widthClass=compact"/>
                                 <connections>
                                     <action selector="onClickLoginButton:" destination="6lc-To-ZGt" eventType="touchUpInside" id="fBb-kv-hnn"/>
                                 </connections>
@@ -780,12 +744,12 @@
                                 <exclude reference="ako-VN-fPJ"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="V6j-n6-IpF"/>
+                                <exclude reference="BLg-Qp-fMg"/>
+                                <exclude reference="Hgw-Og-vMq"/>
                                 <exclude reference="Zde-BO-RM2"/>
                                 <exclude reference="bgT-gA-RpX"/>
                                 <exclude reference="d1h-eR-00a"/>
-                                <exclude reference="BLg-Qp-fMg"/>
-                                <exclude reference="Hgw-Og-vMq"/>
-                                <exclude reference="V6j-n6-IpF"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -794,12 +758,12 @@
                                 <include reference="ako-VN-fPJ"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="V6j-n6-IpF"/>
+                                <include reference="BLg-Qp-fMg"/>
+                                <include reference="Hgw-Og-vMq"/>
                                 <include reference="Zde-BO-RM2"/>
                                 <include reference="bgT-gA-RpX"/>
                                 <include reference="d1h-eR-00a"/>
-                                <include reference="BLg-Qp-fMg"/>
-                                <include reference="Hgw-Og-vMq"/>
-                                <include reference="V6j-n6-IpF"/>
                             </mask>
                         </variation>
                     </view>
@@ -808,24 +772,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ySv-38-U5A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3833.25" y="-322.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="crm-nR-X1p">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WW1-ZD-SM2" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jB9-kK-Esm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ZNh-Ml-sRG" kind="relationship" relationship="rootViewController" id="GJn-eA-oPp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="biY-Iu-t1L" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1740.75" y="428.5"/>
         </scene>
         <!--Me-->
         <scene sceneID="DPH-Sl-jip">
