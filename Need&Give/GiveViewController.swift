@@ -112,6 +112,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         imageCenterY.active = false
         imageRatio.constant = 1
         addPhotoLabel.hidden = true
+        name.becomeFirstResponder()
         view.layoutIfNeeded()
     }
     
@@ -134,6 +135,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             given["detail"] = detail.text
             given["category"] = categoryLabel.text
             given["mailAddress"] = PFUser.currentUser()?.email
+            given["connected"] = false
             var conditionName = ""
             if conditionSlider.value == 100 {
                 conditionName = "Perfect"
@@ -183,6 +185,8 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         detail.text = ""
         categoryLabel.text = categories[0]
         imageSelected.image = nil
+        imageSelected.hidden = true
+        addPhotoLabel.hidden = false
         expand = false
         tableView.reloadData()
     }

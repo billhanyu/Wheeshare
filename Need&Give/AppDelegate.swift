@@ -9,7 +9,6 @@
 /* next tasks:
 
 1. change the button function in detailviewcontroller
-2. implement borrow/lend approve relationship
 3. show current condition of the relationship
 4. loading and nothing found cell xib
 5. hudview should be centered

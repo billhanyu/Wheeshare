@@ -10,8 +10,6 @@ import UIKit
 import Parse
 import Bolts
 
-typealias DownloadComplete = (Bool) -> Void
-
 enum ShareCategory: Int {
     case BorrowRequest = 0
     case Borrow = 1
@@ -56,7 +54,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         doneButton.target = self
         currentUser = PFUser.currentUser()
         initUI()
-        refreshSelector()
+        //refreshSelector()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -144,17 +142,26 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 else {
                     self.givenItems.removeAll()
                     for given in result! {
+                        let borrowUser = given["requester"] as? PFUser == self.currentUser
+                        let connected = given["connected"] as! Bool
+                        let lendUser = given["requestedLender"] as? PFUser == self.currentUser
                         switch self.shareCategory{
                         case .BorrowRequest:
-                            if given["requester"] as? PFUser == self.currentUser {
+                            if borrowUser && !connected {
                                 self.givenItems.append(given)
-                        }
+                            }
                         case .LendRequest:
-                            if given["requestedLender"] as? PFUser == self.currentUser {
+                            if lendUser && !connected {
                                 self.givenItems.append(given)
-                        }
-                        default:
-                            break
+                            }
+                        case .Borrow:
+                            if borrowUser && connected {
+                                self.givenItems.append(given)
+                            }
+                        case .Lend:
+                            if lendUser && connected {
+                                self.givenItems.append(given)
+                            }
                         }
                     }
                     self.refresher.endRefreshing()

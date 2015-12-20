@@ -362,18 +362,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-ss-c8b">
-                                <rect key="frame" x="-60" y="-14" width="121" height="29"/>
-                                <segments>
-                                    <segment title="My Request"/>
-                                    <segment title="Borrows"/>
-                                    <segment title="Request Got"/>
-                                    <segment title="Lends"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentChanged:" destination="5sb-wF-5TU" eventType="valueChanged" id="ZKL-kc-xVW"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Mp-LyS">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -459,6 +447,18 @@
                                     <outlet property="delegate" destination="5sb-wF-5TU" id="MGK-1F-BhO"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-ss-c8b">
+                                <rect key="frame" x="-60" y="-14" width="121" height="29"/>
+                                <segments>
+                                    <segment title="My Request"/>
+                                    <segment title="Borrows"/>
+                                    <segment title="Request Got"/>
+                                    <segment title="Lends"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="5sb-wF-5TU" eventType="valueChanged" id="ZKL-kc-xVW"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -474,8 +474,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="Llb-ss-c8b"/>
                                 <exclude reference="HoM-Mp-LyS"/>
+                                <exclude reference="Llb-ss-c8b"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="VMD-Rp-qOo"/>
@@ -489,8 +489,8 @@
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="Llb-ss-c8b"/>
                                 <include reference="HoM-Mp-LyS"/>
+                                <include reference="Llb-ss-c8b"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="VMD-Rp-qOo"/>
@@ -597,7 +597,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Borrow Request"/>
                                 <connections>
-                                    <action selector="borrow:" destination="heL-N0-JwE" eventType="touchUpInside" id="uhK-yc-piH"/>
+                                    <action selector="requestButtonClicked:" destination="heL-N0-JwE" eventType="touchUpInside" id="ZHO-HD-kPp"/>
                                 </connections>
                             </button>
                         </subviews>

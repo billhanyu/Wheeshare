@@ -26,6 +26,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.delegate = self
+        updateUI()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -82,10 +83,20 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         requestButton.enabled = true
         
         if item["requester"] as? PFUser == PFUser.currentUser() {
-            requestButton.titleLabel?.text = "I Requested"
+            if item["connected"] as! Bool {
+                requestButton.setTitle("Approved", forState: .Disabled)
+            }
+            else {
+                requestButton.setTitle("I requested", forState: .Disabled)
+            }
         }
         if item["requestedLender"] as? PFUser == PFUser.currentUser() {
-            requestButton.titleLabel?.text = "Approve"
+            if item["connected"] as! Bool {
+                requestButton.setTitle("Approved", forState: .Disabled)
+            }
+            else {
+                requestButton.setTitle("Approve", forState: .Normal)
+            }
         }
         
         let imageFile = item["image"] as? PFFile
@@ -106,7 +117,16 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         view.layoutIfNeeded()
     }
     
-    @IBAction func borrow(sender: AnyObject) {
+    @IBAction func requestButtonClicked(sender: AnyObject) {
+        if requestButton.titleLabel?.text == "Borrow Request" {
+            borrowRequest()
+        }
+        else if requestButton.titleLabel?.text == "Approve" {
+            borrowApprove()
+        }
+    }
+    
+    func borrowRequest() {
         // save the request in user
         item["requester"] = PFUser.currentUser()
         item.saveInBackground()
@@ -129,6 +149,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             alert.addAction(emailAction)
             alert.addAction(cancelAction)
             self.presentViewController(alert, animated: true, completion: nil)
+            self.updateUI()
         }
         
         let giver = item["giver"] as! PFUser
@@ -139,6 +160,12 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         item.saveInBackground()
         
         // notify the lender
+    }
+    
+    func borrowApprove() {
+        item["connected"] = true
+        item.saveInBackground()
+        // notify the requester
     }
 
 }
