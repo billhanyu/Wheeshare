@@ -32,6 +32,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         frameRect.size.height = 75;
         detail.frame = frameRect;
         pickerView.delegate = self
+        categoryLabel.text = categories[0]
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
@@ -117,10 +118,9 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Given" {
-            /*
-            dispatch_async(dispatch_get_main_queue()) {
-                self.hud()
-            }*/
+            if validateInput() == false {
+                return
+            }
             
             var imageFile: PFFile?
             if let image = image {
@@ -158,7 +158,32 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
                     print("Given object info saving failure")
                 }
             }
+            
+            flush()
         }
+    }
+    
+    func validateInput() -> Bool {
+        if name.text == "" {
+            let alertController = UIAlertController(title: "Cannot Post", message: "Please fill in a name", preferredStyle: .Alert)
+            let alertButton = UIAlertAction(title: "OK", style: .Cancel, handler: {
+                (action: UIAlertAction!) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+            alertController.addAction(alertButton)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+    
+    func flush() {
+        name.text = ""
+        detail.text = ""
+        categoryLabel.text = categories[0]
+        imageSelected.image = nil
+        expand = false
+        tableView.reloadData()
     }
     
     // MARK: UIPickerView Delegate & DataSource
