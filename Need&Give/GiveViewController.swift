@@ -55,10 +55,9 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         print("supposed to be showing hud")
         
         let hudView = HudView.hudInView(self.view, animated: true)
-        hudView.text = "Given!"
+        hudView.text = "Lended!"
         afterDelay(0.6, closure: {
-            print("delaying")
-            self.dismissViewControllerAnimated(true, completion: nil)
+            hudView.removeFromSuperview()
         })
     }
     
@@ -121,6 +120,8 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             if validateInput() == false {
                 return
             }
+            
+            hud()
             
             var imageFile: PFFile?
             if let image = image {
