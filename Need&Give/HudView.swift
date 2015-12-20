@@ -52,7 +52,7 @@ class HudView: UIView {
             // 1
             alpha = 0
             transform = CGAffineTransformMakeScale(1.3, 1.3) // 2
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animateWithDuration(0.6, animations: {
                 // 3
                 self.alpha = 1
                 self.transform = CGAffineTransformIdentity

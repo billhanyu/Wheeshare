@@ -12,31 +12,78 @@ import Bolts
 
 typealias DownloadComplete = (Bool) -> Void
 
+enum ShareCategory: Int {
+    case BorrowRequest = 0
+    case Borrow = 1
+    case LendRequest = 2
+    case Lend = 3
+    
+    var categoryName: String {
+        switch self {
+        case .BorrowRequest:
+            return "borrowRequest"
+        case .Borrow:
+            return "borrow"
+        case .LendRequest:
+            return "lendRequest"
+        case .Lend:
+            return "lend"
+        }
+    }
+}
+
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refresher:UIRefreshControl!
     var givenItems: [PFObject] = []
     
     var selectRow: Int!
+    var showShare: Bool = false
+    var currentUser: PFUser?
     
+    var shareCategory: ShareCategory = .BorrowRequest
+    
+    var doneButton = UIBarButtonItem(title: "Done", style: .Done, target: nil, action: Selector("dismiss"))
+    
+    @IBOutlet weak var tableViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var tableViewTop: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
 
+    @IBOutlet weak var shareDone: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.delegate = self
-        navigationBar.delegate = self
-        
+        doneButton.target = self
+        currentUser = PFUser.currentUser()
         initUI()
         refreshSelector()
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewDidAppear(true)
         refreshSelector()
         if let _ = PFUser.currentUser() {
             fillTelNumber()
         }
+        
+        // no as showshareVC
+        if (!showShare) {
+            segmentedControl.hidden = true
+            tableViewTop.constant = 0
+            tableViewBottom.constant = 49
+            title = "Borrow"
+            tableView.reloadData()
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        else {
+            segmentedControl.hidden = false
+            tableViewTop.constant = 39
+            tableViewBottom.constant = 0
+            title = "My Shares"
+            tableView.reloadData()
+            self.navigationItem.rightBarButtonItem = doneButton
+        }
+
     }
     
     func fillTelNumber() {
@@ -75,20 +122,44 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: Selector("refreshSelector"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refresher)
+        
     }
     
     func refreshSelector() {
-        let query = PFQuery(className: "Needs")
+        var query: PFQuery!
+        query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
+        //query.cachePolicy = .CacheElseNetwork
         
         query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
             if (error == nil) {
-                self.givenItems.removeAll()
-                for given in result! {
-                    self.givenItems.append(given)
+                if !self.showShare {
+                    self.givenItems.removeAll()
+                    for given in result! {
+                        self.givenItems.append(given)
+                    }
+                    self.refresher.endRefreshing()
+                    self.tableView.reloadData()
                 }
-                self.refresher.endRefreshing()
-                self.tableView.reloadData()
+                else {
+                    self.givenItems.removeAll()
+                    for given in result! {
+                        switch self.shareCategory{
+                        case .BorrowRequest:
+                            if given["requester"] as? PFUser == self.currentUser {
+                                self.givenItems.append(given)
+                        }
+                        case .LendRequest:
+                            if given["requestedLender"] as? PFUser == self.currentUser {
+                                self.givenItems.append(given)
+                        }
+                        default:
+                            break
+                        }
+                    }
+                    self.refresher.endRefreshing()
+                    self.tableView.reloadData()
+                }
             }
             else {
                 print(error)
@@ -100,6 +171,16 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.refresher.endRefreshing()
             self.tableView.reloadData()
         })*/
+    }
+    
+    @IBAction func segmentChanged(sender: AnyObject) {
+        shareCategory = ShareCategory(rawValue:segmentedControl.selectedSegmentIndex)!
+        refreshSelector()
+    }
+    
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        print("dismiss")
     }
     
     func showNetworkError() {
@@ -147,11 +228,5 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let controller = segue.destinationViewController as! DetailViewController
             controller.item = givenItems[(selectedIndex?.row)!]
         }
-    }
-}
-
-extension NeedViewController: UINavigationBarDelegate {
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
     }
 }

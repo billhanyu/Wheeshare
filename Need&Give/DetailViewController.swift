@@ -17,8 +17,8 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var conditionStatus: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var requestButton: UIButton!
     
     var item: PFObject!
     var mailAddress: String?
@@ -26,17 +26,20 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.delegate = self
-        updateUI()
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func mail(sender: AnyObject) {
-        mailAddress = emailButton.titleLabel?.text
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        updateUI()
+    }
+    
+    func mail() {
         if let _ = mailAddress {
             let mailComposeViewController = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
                 self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-            } else {
+            }
+            else {
                 self.showSendMailErrorAlert()
             }
         }
@@ -75,7 +78,16 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         categoryNameLabel.text = item["category"] as! String?
         conditionStatus.text = item["condition"] as! String?
         contentLabel.text = item["detail"] as! String?
-        emailButton.setTitle(item["mailAddress"] as! String?, forState: .Normal)
+        mailAddress = item["mailAddress"] as! String?
+        requestButton.enabled = true
+        
+        if item["requester"] as? PFUser == PFUser.currentUser() {
+            requestButton.titleLabel?.text = "I Requested"
+        }
+        if item["requestedLender"] as? PFUser == PFUser.currentUser() {
+            requestButton.titleLabel?.text = "Approve"
+        }
+        
         let imageFile = item["image"] as? PFFile
         
         if let imageFile = imageFile {
@@ -90,6 +102,43 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
                 }
             }
         }
+        
+        view.layoutIfNeeded()
+    }
+    
+    @IBAction func borrow(sender: AnyObject) {
+        // save the request in user
+        item["requester"] = PFUser.currentUser()
+        item.saveInBackground()
+        
+        let user = PFUser.currentUser()
+        user!["borrowRequest"] = item
+        user!.saveInBackgroundWithBlock { (success, error) -> Void in
+            if !success || error != nil {
+                let alert = UIAlertController(title: "Error", message: "Please try again later.", preferredStyle: .Alert)
+                let action = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+                alert.addAction(action)
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            let alert = UIAlertController(title: "Requested!", message: "Wanna Email the owner?", preferredStyle: .Alert)
+            let emailAction = UIAlertAction(title: "Email", style: .Default, handler: { _ in
+                self.mail()
+            })
+            let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+            alert.addAction(emailAction)
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        
+        let giver = item["giver"] as! PFUser
+        giver["requestedLend"] = item
+        giver.saveInBackground()
+        
+        item["requestedLender"] = giver
+        item.saveInBackground()
+        
+        // notify the lender
     }
 
 }

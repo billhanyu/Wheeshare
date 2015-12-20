@@ -11,8 +11,6 @@ import Parse
 
 class UserViewController: UITableViewController {
     
-    var user: PFUser?
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profilePic: UIImageView!
@@ -20,21 +18,20 @@ class UserViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = PFUser.currentUser()
         initUI()
     }
     
     func initUI() {
-        if let name = user?.username {
+        if let name = PFUser.currentUser()?.username {
             nameLabel.text = name
         }
-        if let email = user?.email {
+        if let email = PFUser.currentUser()?.email {
             emailLabel.text = email
         }
         
         // set profile picture & phone number
         let query = PFUser.query()
-        query?.getObjectInBackgroundWithId((user?.objectId)!, block: {
+        query?.getObjectInBackgroundWithId((PFUser.currentUser()?.objectId)!, block: {
             (person: PFObject?, error:NSError?) -> Void in
             if let person = person {
                 let telNum = person["telNum"] as? String
@@ -66,15 +63,13 @@ class UserViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0: return 4
-        case 1: return 2
-        case 2: return 1
         default: return 1
         }
     }
@@ -94,6 +89,15 @@ class UserViewController: UITableViewController {
             alert.addAction(cancel)
             alert.addAction(logOut)
             presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowShare" {
+            let navController = segue.destinationViewController as! UINavigationController
+            let needViewController = navController.topViewController as! NeedViewController
+            
+            needViewController.showShare = true
         }
     }
 
