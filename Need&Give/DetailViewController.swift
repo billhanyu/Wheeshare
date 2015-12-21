@@ -17,7 +17,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var conditionStatus: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var requestButton: UIButton!
     
     var item: PFObject!
@@ -25,7 +24,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.delegate = self
         updateUI()
     }
     
@@ -52,7 +50,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         
         mailComposerVC.setToRecipients([mailAddress!])
         mailComposerVC.setSubject("I need this...")
-        if let stuffName = navigationBar.topItem?.title {
+        if let stuffName = navigationItem.title {
             mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
         }
         
@@ -74,8 +72,9 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func updateUI() {
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationBar.topItem?.title = item["Name"] as! String?
+        navigationItem.title = item["Name"] as! String?
+        /*self.navigationItem.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationBar.topItem?.title =*/
         categoryNameLabel.text = item["category"] as! String?
         conditionStatus.text = item["condition"] as! String?
         contentLabel.text = item["detail"] as! String?

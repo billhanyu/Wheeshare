@@ -94,8 +94,7 @@ class UserViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowShare" {
-            let navController = segue.destinationViewController as! UINavigationController
-            let needViewController = navController.topViewController as! NeedViewController
+            let needViewController = segue.destinationViewController as! NeedViewController
             
             needViewController.showShare = true
         }

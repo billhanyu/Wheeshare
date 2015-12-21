@@ -64,6 +64,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var cellNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "LoadingCell")
         
+        firstTime = true
         doneButton.target = self
         currentUser = PFUser.currentUser()
         initUI()
