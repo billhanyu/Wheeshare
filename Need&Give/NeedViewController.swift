@@ -30,6 +30,14 @@ enum ShareCategory: Int {
     }
 }
 
+enum State {
+    case NotSearchedYet
+    case Loading
+    case NoResults
+    case Results
+}
+private(set) var state: State = .NotSearchedYet
+
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refresher:UIRefreshControl!
     var givenItems: [PFObject] = []
@@ -42,6 +50,8 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var doneButton = UIBarButtonItem(title: "Done", style: .Done, target: nil, action: Selector("dismiss"))
     
+    var firstTime = true
+    
     @IBOutlet weak var tableViewBottom: NSLayoutConstraint!
     @IBOutlet weak var tableViewTop: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -51,6 +61,9 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var cellNib = UINib(nibName: "LoadingCell", bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: "LoadingCell")
+        
         doneButton.target = self
         currentUser = PFUser.currentUser()
         initUI()
@@ -124,6 +137,12 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func refreshSelector() {
+        state = .Loading
+        if firstTime {
+            tableView.reloadData()
+            firstTime = false
+        }
+        
         var query: PFQuery!
         query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
@@ -136,8 +155,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     for given in result! {
                         self.givenItems.append(given)
                     }
-                    self.refresher.endRefreshing()
-                    self.tableView.reloadData()
                 }
                 else {
                     self.givenItems.removeAll()
@@ -164,9 +181,15 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             }
                         }
                     }
-                    self.refresher.endRefreshing()
-                    self.tableView.reloadData()
                 }
+                if self.givenItems.count > 0 {
+                    state = .Results
+                }
+                else {
+                    state = .NoResults
+                }
+                self.refresher.endRefreshing()
+                self.tableView.reloadData()
             }
             else {
                 print(error)
@@ -210,14 +233,31 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return givenItems.count
+        switch state {
+        case .Loading:
+            return 1
+        case .NoResults:
+            return 1
+        case .Results:
+            return givenItems.count
+        default:
+            return 0
+        }
     }
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
-        cell.initWithResult(givenItems[indexPath.row])
-        return cell
+        switch state {
+        case .Loading:
+            let cell = tableView.dequeueReusableCellWithIdentifier("LoadingCell", forIndexPath: indexPath)
+            let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+            spinner.startAnimating()
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
+            cell.initWithResult(givenItems[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
