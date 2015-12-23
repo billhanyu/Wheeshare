@@ -38,9 +38,17 @@ enum State {
 }
 private(set) var state: State = .NotSearchedYet
 
-class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoadMoreTableFooterViewDelegate {
     var refresher:UIRefreshControl!
     var givenItems: [PFObject] = []
+    
+    let ITEM_SINGLE_LOAD_AMOUNT:Int = 15
+    var ITEM_SKIP_AMOUNT:Int = 0
+    var itemLoadMoreFooterView: LoadMoreTableFooterView!
+    var itemAllowLoadingMore = true
+    var itemIsLoadingMore: Bool = false
+    var itemCouldLoadMore: Bool = false
+    var itemQueryCompletionCounter = 0
     
     var selectRow: Int!
     var showShare: Bool = false
@@ -135,6 +143,10 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refresher.addTarget(self, action: Selector("refreshSelector"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refresher)
         
+        itemLoadMoreFooterView = LoadMoreTableFooterView(frame: CGRectMake(0, tableView.contentSize.height, tableView.frame.size.width, tableView.frame.size.height))
+        itemLoadMoreFooterView.delegate = self
+        itemLoadMoreFooterView.backgroundColor = UIColor.clearColor()
+        tableView.addSubview(itemLoadMoreFooterView)
     }
     
     func refreshSelector() {
@@ -147,71 +159,22 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var query: PFQuery!
         query = PFQuery(className: "Needs")
         query.orderByDescending("createdAt")
-        //query.cachePolicy = .CacheElseNetwork
+        query.limit = ITEM_SINGLE_LOAD_AMOUNT
+        //query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        self.itemQueryCompletionCounter = 0
         
-        query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
-            if (error == nil) {
-                if !self.showShare {
-                    self.givenItems.removeAll()
-                    for given in result! {
-                        self.givenItems.append(given)
-                    }
-                }
-                else {
-                    self.givenItems.removeAll()
-                    for given in result! {
-                        let borrowUser = given["requester"] as? PFUser == self.currentUser
-                        let connected = given["connected"] as! Bool
-                        let lendUser = given["requestedLender"] as? PFUser == self.currentUser
-                        switch self.shareCategory{
-                        case .BorrowRequest:
-                            if borrowUser && !connected {
-                                self.givenItems.append(given)
-                            }
-                        case .LendRequest:
-                            if lendUser && !connected {
-                                self.givenItems.append(given)
-                            }
-                        case .Borrow:
-                            if borrowUser && connected {
-                                self.givenItems.append(given)
-                            }
-                        case .Lend:
-                            if lendUser && connected {
-                                self.givenItems.append(given)
-                            }
-                        }
-                    }
-                }
-                if self.givenItems.count > 0 {
-                    state = .Results
-                }
-                else {
-                    state = .NoResults
-                }
-                self.refresher.endRefreshing()
-                self.tableView.reloadData()
-            }
-            else {
-                print(error)
-                return
+        query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error: NSError?) -> Void in
+            self.itemQueryCompletionCounter++
+            self.itemQueryCompletionHandler(result: result, error: error, removeAll: true)
+            if self.itemQueryCompletionCounter >= 2 {
+                self.itemAllowLoadingMore = true
             }
         }
-        /*
-        dispatch_async(dispatch_get_main_queue(), {
-            self.refresher.endRefreshing()
-            self.tableView.reloadData()
-        })*/
     }
     
     @IBAction func segmentChanged(sender: AnyObject) {
         shareCategory = ShareCategory(rawValue:segmentedControl.selectedSegmentIndex)!
         refreshSelector()
-    }
-    
-    func dismiss() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        print("dismiss")
     }
     
     func showNetworkError() {
@@ -224,6 +187,73 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         alert.addAction(action)
         
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func itemLoadMoreSelector() {
+        print("Item Begin Loading More")
+        let query = PFQuery(className: "Needs")
+        query.orderByDescending("createdAt")
+        query.limit = ITEM_SINGLE_LOAD_AMOUNT
+        query.skip = ITEM_SKIP_AMOUNT
+        query.findObjectsInBackgroundWithBlock { (result:[PFObject]?, error:NSError?) -> Void in
+            self.itemQueryCompletionHandler(result: result, error: error, removeAll: false)
+            self.doneItemLoadingMoreTableViewData()
+        }
+    }
+    
+    func itemQueryCompletionHandler (result result:[PFObject]!, error: NSError!, removeAll:Bool) {
+        if (error == nil) {
+            if removeAll {
+                givenItems.removeAll(keepCapacity: true)
+                ITEM_SKIP_AMOUNT = 0
+            }
+            itemCouldLoadMore = result.count >= ITEM_SINGLE_LOAD_AMOUNT
+            ITEM_SKIP_AMOUNT += result.count
+            print("Find \(result.count) items.")
+            
+            if !self.showShare {
+                for given in result! {
+                    self.givenItems.append(given)
+                }
+            }
+            else {
+                for given in result! {
+                    let borrowUser = given["requester"] as? PFUser == self.currentUser
+                    let connected = given["connected"] as! Bool
+                    let lendUser = given["requestedLender"] as? PFUser == self.currentUser
+                    switch self.shareCategory{
+                    case .BorrowRequest:
+                        if borrowUser && !connected {
+                            self.givenItems.append(given)
+                        }
+                    case .LendRequest:
+                        if lendUser && !connected {
+                            self.givenItems.append(given)
+                        }
+                    case .Borrow:
+                        if borrowUser && connected {
+                            self.givenItems.append(given)
+                        }
+                    case .Lend:
+                        if lendUser && connected {
+                            self.givenItems.append(given)
+                        }
+                    }
+                }
+            }
+            if self.givenItems.count > 0 {
+                state = .Results
+            }
+            else {
+                state = .NoResults
+            }
+            self.refresher.endRefreshing()
+            self.tableView.reloadData()
+        }
+        else {
+            print(error)
+            return
+        }
     }
 
     // MARK: - Table view data source
@@ -269,12 +299,46 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         selectRow = indexPath.row
     }
     
+    // MARK: - segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "DetailReveal" {
             let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForCell(sender as! UITableViewCell)!, animated: true)
             let controller = segue.destinationViewController as! DetailViewController
             controller.item = givenItems[(selectedIndex?.row)!]
+        }
+    }
+    
+    // MARK: - Pull to load more
+    func loadMoreTableFooterDidTriggerRefresh(view: LoadMoreTableFooterView) {
+        itemloadMoreTableViewDataSource()
+    }
+    
+    func loadMoreTableFooterDataSourceIsLoading(view: LoadMoreTableFooterView) -> Bool {
+        return itemIsLoadingMore
+    }
+    
+    func itemloadMoreTableViewDataSource() {
+        if itemIsLoadingMore {return}
+        itemIsLoadingMore = true
+        itemLoadMoreSelector()
+    }
+    
+    func doneItemLoadingMoreTableViewData() {
+        itemIsLoadingMore = false
+        itemLoadMoreFooterView.loadMoreScrollViewDataSourceDidFinishedLoading()
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (itemAllowLoadingMore && itemCouldLoadMore) {
+            itemLoadMoreFooterView.loadMoreScrollViewDidScroll(scrollView)
+        }
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (itemAllowLoadingMore && itemCouldLoadMore) {
+            itemLoadMoreFooterView.loadMoreScrollViewDidEndDragging(scrollView)
         }
     }
 }
