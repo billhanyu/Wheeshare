@@ -128,6 +128,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     func borrowRequest() {
         // save the request in user
         item["requester"] = PFUser.currentUser()
+        print(item["requester"])
         item.saveInBackground()
         
         let user = PFUser.currentUser()

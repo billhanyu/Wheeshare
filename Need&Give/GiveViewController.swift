@@ -27,7 +27,10 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        initUI()
+    }
+    
+    func initUI() {
         var frameRect: CGRect = detail.frame;
         frameRect.size.height = 75;
         detail.frame = frameRect;
@@ -37,6 +40,17 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func flush() {
+        name.text = ""
+        detail.text = ""
+        categoryLabel.text = categories[0]
+        imageSelected.image = nil
+        imageSelected.hidden = true
+        addPhotoLabel.hidden = false
+        expand = false
+        tableView.reloadData()
     }
     
     func hideKeyboard(gestureRecognizer: UIGestureRecognizer) {
@@ -49,16 +63,6 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         }
         
         name.resignFirstResponder()
-    }
-    
-    func hud() {
-        print("supposed to be showing hud")
-        
-        let hudView = HudView.hudInView(self.view, animated: true)
-        hudView.text = "Lended!"
-        afterDelay(0.6, closure: {
-            hudView.removeFromSuperview()
-        })
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -121,8 +125,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             if validateInput() == false {
                 return
             }
-            
-            hud()
+            self.pleaseWait()
             
             var imageFile: PFFile?
             if let image = image {
@@ -155,13 +158,23 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             }
             given.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
+                self.clearAllNotice()
                 if (success) {
                     print("Given object info saved")
+                    UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                            self.noticeSuccess("Lended!")
+                        }, completion: { _ in
+                            delay(seconds: 0.8) {self.clearAllNotice()}
+                    })
                 } else {
                     print("Given object info saving failure")
+                    UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                        self.noticeError("Error")
+                        }, completion: { _ in
+                            delay(seconds: 0.8) {self.clearAllNotice()}
+                    })
                 }
             }
-            
             flush()
         }
     }
@@ -178,17 +191,6 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             return false
         }
         return true
-    }
-    
-    func flush() {
-        name.text = ""
-        detail.text = ""
-        categoryLabel.text = categories[0]
-        imageSelected.image = nil
-        imageSelected.hidden = true
-        addPhotoLabel.hidden = false
-        expand = false
-        tableView.reloadData()
     }
     
     // MARK: UIPickerView Delegate & DataSource

@@ -18,7 +18,6 @@
 		002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14981BEE83CE007288F6 /* NeedViewController.swift */; };
 		002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A149A1BEE847F007288F6 /* GiveViewController.swift */; };
 		002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14EE1BEEC81F007288F6 /* ListedCell.swift */; };
-		003BB0FB1BEFC9AF00FF1858 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FA1BEFC9AF00FF1858 /* HudView.swift */; };
 		003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FC1BEFCAF400FF1858 /* Functions.swift */; };
 		006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006B46FE1C14C1D000B24E4B /* UserViewController.swift */; };
 		0081D1EA1C27A1B700F57CAB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0081D1E91C27A1B700F57CAB /* LoadingCell.xib */; };
@@ -44,6 +43,7 @@
 		00C795531C13CEE90080F4D4 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795521C13CEE90080F4D4 /* Accounts.framework */; };
 		00C795551C13CEEF0080F4D4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795541C13CEEF0080F4D4 /* Social.framework */; };
 		00C795571C13CFF80080F4D4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C795561C13CFF80080F4D4 /* LoginViewController.swift */; };
+		00D122871C293E0900CDCD5F /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D122861C293E0900CDCD5F /* SwiftNotice.swift */; };
 		00FEF0541C0CDC5D00A1C18A /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */; };
 		00FEF0561C0CEC0800A1C18A /* GivenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0551C0CEC0800A1C18A /* GivenItem.swift */; };
 /* End PBXBuildFile section */
@@ -83,7 +83,6 @@
 		002A14981BEE83CE007288F6 /* NeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedViewController.swift; sourceTree = "<group>"; };
 		002A149A1BEE847F007288F6 /* GiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiveViewController.swift; sourceTree = "<group>"; };
 		002A14EE1BEEC81F007288F6 /* ListedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListedCell.swift; sourceTree = "<group>"; };
-		003BB0FA1BEFC9AF00FF1858 /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		003BB0FC1BEFCAF400FF1858 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		006B46FE1C14C1D000B24E4B /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		0081D1E91C27A1B700F57CAB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 		00C795521C13CEE90080F4D4 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		00C795541C13CEEF0080F4D4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		00C795561C13CFF80080F4D4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		00D122861C293E0900CDCD5F /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
 		00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
 		00FEF0551C0CEC0800A1C18A /* GivenItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GivenItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,11 +190,11 @@
 				003BB0FC1BEFCAF400FF1858 /* Functions.swift */,
 				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
 				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
-				003BB0FA1BEFC9AF00FF1858 /* HudView.swift */,
 				002A14701BEE7905007288F6 /* Info.plist */,
 				002A146D1BEE7905007288F6 /* LaunchScreen.storyboard */,
 				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
 				002A14681BEE7905007288F6 /* Main.storyboard */,
+				00D122861C293E0900CDCD5F /* SwiftNotice.swift */,
 				0081D1E91C27A1B700F57CAB /* LoadingCell.xib */,
 				00C795561C13CFF80080F4D4 /* LoginViewController.swift */,
 				002A14981BEE83CE007288F6 /* NeedViewController.swift */,
@@ -394,7 +394,7 @@
 				002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */,
 				002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */,
 				0019028F1BEF12F50002C20C /* DetailViewController.swift in Sources */,
-				003BB0FB1BEFC9AF00FF1858 /* HudView.swift in Sources */,
+				00D122871C293E0900CDCD5F /* SwiftNotice.swift in Sources */,
 				00C795571C13CFF80080F4D4 /* LoginViewController.swift in Sources */,
 				00FEF0541C0CDC5D00A1C18A /* UIImage+Compress.swift in Sources */,
 			);

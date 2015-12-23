@@ -61,7 +61,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var cellNib = UINib(nibName: "LoadingCell", bundle: nil)
+        let cellNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "LoadingCell")
         
         firstTime = true
