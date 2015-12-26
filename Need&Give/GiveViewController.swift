@@ -121,7 +121,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "Given" {
+        if segue.identifier == AppKeys.SegueIdentifiers.lendItem {
             if validateInput() == false {
                 return
             }
@@ -133,12 +133,11 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
                 imageFile = PFFile(name:"image.png", data:imageData)
             }
             let given = PFObject(className:"Needs")
-            given["giver"] = PFUser.currentUser()
-            given["Name"] = name.text
-            given["detail"] = detail.text
-            given["category"] = categoryLabel.text
-            given["mailAddress"] = PFUser.currentUser()?.email
-            given["connected"] = false
+            given[AppKeys.ItemRelationship.owner] = PFUser.currentUser()
+            given[AppKeys.ItemProperties.name] = name.text
+            given[AppKeys.ItemProperties.description] = detail.text
+            given[AppKeys.ItemProperties.category] = categoryLabel.text
+            given[AppKeys.ItemRelationship.connected] = false
             var conditionName = ""
             if conditionSlider.value == 100 {
                 conditionName = "Perfect"
@@ -152,9 +151,9 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             else {
                 conditionName = "Old"
             }
-            given["condition"] = conditionName
+            given[AppKeys.ItemProperties.condition] = conditionName
             if let imageFile = imageFile {
-                given["image"] = imageFile
+                given[AppKeys.ItemProperties.image] = imageFile
             }
             given.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
@@ -181,13 +180,11 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
     
     func validateInput() -> Bool {
         if name.text == "" {
-            let alertController = UIAlertController(title: "Cannot Post", message: "Please fill in a name", preferredStyle: .Alert)
-            let alertButton = UIAlertAction(title: "OK", style: .Cancel, handler: {
-                (action: UIAlertAction!) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                self.noticeError("Info Needed")
+                }, completion: { _ in
+                    delay(seconds: 0.8) {self.clearAllNotice()}
             })
-            alertController.addAction(alertButton)
-            self.presentViewController(alertController, animated: true, completion: nil)
             return false
         }
         return true

@@ -378,7 +378,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GivenCell" rowHeight="88" id="ovI-iX-4TJ" customClass="ListedCell" customModule="Need_Give" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ListedCell" rowHeight="88" id="ovI-iX-4TJ" customClass="ListedCell" customModule="Need_Give" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="375" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ovI-iX-4TJ" id="wWl-jt-dkj">

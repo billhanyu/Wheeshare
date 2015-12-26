@@ -68,25 +68,24 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func updateUI() {
-        navigationItem.title = item["Name"] as! String?
+        navigationItem.title = item[AppKeys.ItemProperties.name] as! String?
         /*self.navigationItem.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         navigationBar.topItem?.title =*/
-        categoryNameLabel.text = item["category"] as! String?
-        conditionStatus.text = item["condition"] as! String?
-        contentLabel.text = item["detail"] as! String?
-        mailAddress = item["mailAddress"] as! String?
+        categoryNameLabel.text = item[AppKeys.ItemProperties.category] as! String?
+        conditionStatus.text = item[AppKeys.ItemProperties.condition] as! String?
+        contentLabel.text = item[AppKeys.ItemProperties.description] as! String?
         requestButton.enabled = true
         
-        if item["requester"] as? PFUser == PFUser.currentUser() {
-            if item["connected"] as! Bool {
+        if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
+            if item[AppKeys.ItemRelationship.connected] as! Bool {
                 requestButton.setTitle("Approved", forState: .Disabled)
             }
             else {
                 requestButton.setTitle("I requested", forState: .Disabled)
             }
         }
-        if item["requestedLender"] as? PFUser == PFUser.currentUser() {
-            if item["connected"] as! Bool {
+        if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
+            if item[AppKeys.ItemRelationship.connected] as! Bool {
                 requestButton.setTitle("Approved", forState: .Disabled)
             }
             else {
@@ -94,7 +93,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             }
         }
         
-        let imageFile = item["image"] as? PFFile
+        let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
         
         if let imageFile = imageFile {
             imageFile.getDataInBackgroundWithBlock {
@@ -125,39 +124,21 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         let user = PFUser.currentUser()
         
         // save the request in user
-        item["requester"] = user!
-        item.saveInBackgroundWithBlock { (success, error) -> Void in
-            self.updateUI()
-        }
-        
-        user!["borrowRequest"] = item
-        user!.saveInBackground()
-        
-        let alert = UIAlertController(title: "Requested!", message: "Wanna Email the owner?", preferredStyle: .Alert)
-        let emailAction = UIAlertAction(title: "Email", style: .Default, handler: { _ in
-            self.mail()})
-        let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
-        alert.addAction(emailAction)
-        alert.addAction(cancelAction)
-        self.presentViewController(alert, animated: true, completion: nil)
-        print("reached here")
-        
-        let giver = item["giver"] as! PFUser
-        giver["requestedLend"] = item
-        giver.saveInBackground()
-        
-        item["requestedLender"] = giver
+        item[AppKeys.ItemRelationship.requester] = user!
         item.saveInBackground()
         
+        let giver = item[AppKeys.ItemRelationship.owner] as! PFUser
+        item[AppKeys.ItemRelationship.requestedLender] = giver
+        item.saveInBackground()
+
         // notify the lender
     }
     
     func borrowApprove() {
-        item["connected"] = true
+        item[AppKeys.ItemRelationship.connected] = true
         item.saveInBackground()
         // notify the requester
     }
-
 }
 
 extension DetailViewController: UINavigationBarDelegate {

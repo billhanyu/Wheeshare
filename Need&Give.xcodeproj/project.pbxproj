@@ -18,11 +18,12 @@
 		002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14981BEE83CE007288F6 /* NeedViewController.swift */; };
 		002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A149A1BEE847F007288F6 /* GiveViewController.swift */; };
 		002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002A14EE1BEEC81F007288F6 /* ListedCell.swift */; };
-		003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FC1BEFCAF400FF1858 /* Functions.swift */; };
+		003BB0FD1BEFCAF400FF1858 /* AppFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003BB0FC1BEFCAF400FF1858 /* AppFunctions.swift */; };
 		006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006B46FE1C14C1D000B24E4B /* UserViewController.swift */; };
 		0081D1EA1C27A1B700F57CAB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0081D1E91C27A1B700F57CAB /* LoadingCell.xib */; };
 		009EB5ED1C2A9EB4002303DA /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */; };
 		009EB5EF1C2EB197002303DA /* NoResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 009EB5EE1C2EB197002303DA /* NoResultsCell.xib */; };
+		009EB5F11C2EB3B6002303DA /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009EB5F01C2EB3B6002303DA /* AppKeys.swift */; };
 		00C7952D1C13CD900080F4D4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795261C13CD900080F4D4 /* Bolts.framework */; };
 		00C7952E1C13CD900080F4D4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795271C13CD900080F4D4 /* Parse.framework */; };
 		00C7952F1C13CD900080F4D4 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795281C13CD900080F4D4 /* ParseCrashReporting.framework */; };
@@ -85,11 +86,12 @@
 		002A14981BEE83CE007288F6 /* NeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedViewController.swift; sourceTree = "<group>"; };
 		002A149A1BEE847F007288F6 /* GiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiveViewController.swift; sourceTree = "<group>"; };
 		002A14EE1BEEC81F007288F6 /* ListedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListedCell.swift; sourceTree = "<group>"; };
-		003BB0FC1BEFCAF400FF1858 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		003BB0FC1BEFCAF400FF1858 /* AppFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFunctions.swift; sourceTree = "<group>"; };
 		006B46FE1C14C1D000B24E4B /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		0081D1E91C27A1B700F57CAB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
 		009EB5EE1C2EB197002303DA /* NoResultsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultsCell.xib; sourceTree = "<group>"; };
+		009EB5F01C2EB3B6002303DA /* AppKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		00C795261C13CD900080F4D4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		00C795271C13CD900080F4D4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		00C795281C13CD900080F4D4 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -190,7 +192,8 @@
 				002A14701BEE7905007288F6 /* Info.plist */,
 				002A14641BEE7905007288F6 /* AppDelegate.swift */,
 				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
-				003BB0FC1BEFCAF400FF1858 /* Functions.swift */,
+				009EB5F01C2EB3B6002303DA /* AppKeys.swift */,
+				003BB0FC1BEFCAF400FF1858 /* AppFunctions.swift */,
 				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
 				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
 				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
@@ -395,12 +398,13 @@
 				002A14671BEE7905007288F6 /* ViewController.swift in Sources */,
 				00FEF0561C0CEC0800A1C18A /* GivenItem.swift in Sources */,
 				002A14EF1BEEC81F007288F6 /* ListedCell.swift in Sources */,
-				003BB0FD1BEFCAF400FF1858 /* Functions.swift in Sources */,
+				003BB0FD1BEFCAF400FF1858 /* AppFunctions.swift in Sources */,
 				002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */,
 				006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */,
 				002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */,
 				009EB5ED1C2A9EB4002303DA /* LoadMoreTableFooterView.swift in Sources */,
 				002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */,
+				009EB5F11C2EB3B6002303DA /* AppKeys.swift in Sources */,
 				0019028F1BEF12F50002C20C /* DetailViewController.swift in Sources */,
 				00D122871C293E0900CDCD5F /* SwiftNotice.swift in Sources */,
 				00C795571C13CFF80080F4D4 /* LoginViewController.swift in Sources */,

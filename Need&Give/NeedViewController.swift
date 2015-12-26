@@ -67,10 +67,10 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var cellNib = UINib(nibName: "LoadingCell", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "LoadingCell")
-        cellNib = UINib(nibName: "NoResultsCell", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultsCell")
+        var cellNib = UINib(nibName: AppKeys.CellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: AppKeys.CellIdentifiers.loadingCell)
+        cellNib = UINib(nibName: AppKeys.CellIdentifiers.noResultsCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: AppKeys.CellIdentifiers.noResultsCell)
         
         firstTime = true
         currentUser = PFUser.currentUser()
@@ -110,13 +110,13 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         query.getObjectInBackgroundWithId((user?.objectId)!, block: {
             (person: PFObject?, error:NSError?) -> Void in
             if let person = person {
-                let telNum = person["telNum"]
+                let telNum = person[AppKeys.User.telephone]
                 
                 if telNum == nil {
                     let alert = UIAlertController(title: "Telephone Number", message: "Please fill in telephone number as contact info :)", preferredStyle: .Alert)
                     let confirm = UIAlertAction(title: "Confirm", style: .Default, handler: { (UIAlertAction) -> Void in
                         let textField = alert.textFields![0] as UITextField
-                        person["telNum"] = textField.text
+                        person[AppKeys.User.telephone] = textField.text
                         person.saveInBackground()
                     })
                     let textField = UITextField()
@@ -215,9 +215,9 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else {
                 for given in result! {
-                    let borrowUser = given["requester"] as? PFUser == self.currentUser
-                    let connected = given["connected"] as! Bool
-                    let lendUser = given["requestedLender"] as? PFUser == self.currentUser
+                    let borrowUser = given[AppKeys.ItemRelationship.requester] as? PFUser == self.currentUser
+                    let connected = given[AppKeys.ItemRelationship.connected] as! Bool
+                    let lendUser = given[AppKeys.ItemRelationship.requestedLender] as? PFUser == self.currentUser
                     switch self.shareCategory{
                     case .BorrowRequest:
                         if borrowUser && !connected {
@@ -277,15 +277,15 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch state {
         case .Loading:
-            let cell = tableView.dequeueReusableCellWithIdentifier("LoadingCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier(AppKeys.CellIdentifiers.loadingCell, forIndexPath: indexPath)
             let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
             spinner.startAnimating()
             return cell
         case .NoResults:
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoResultsCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier(AppKeys.CellIdentifiers.noResultsCell, forIndexPath: indexPath)
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(AppKeys.CellIdentifiers.listedCell, forIndexPath: indexPath) as! ListedCell
             print(state)
             cell.initWithResult(givenItems[indexPath.row])
             return cell
@@ -302,7 +302,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "DetailReveal" {
+        if segue.identifier == AppKeys.SegueIdentifiers.detailReveal {
             let selectedIndex = self.tableView.indexPathForCell(sender as! UITableViewCell)
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForCell(sender as! UITableViewCell)!, animated: true)
             let controller = segue.destinationViewController as! DetailViewController

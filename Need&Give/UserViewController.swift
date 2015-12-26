@@ -34,10 +34,10 @@ class UserViewController: UITableViewController {
         query?.getObjectInBackgroundWithId((PFUser.currentUser()?.objectId)!, block: {
             (person: PFObject?, error:NSError?) -> Void in
             if let person = person {
-                let telNum = person["telNum"] as? String
+                let telNum = person[AppKeys.User.telephone] as? String
                 self.telNumLabel.text = telNum
                 
-                let imageFile = person["profilePic"]
+                let imageFile = person[AppKeys.User.profilePic]
                 if let imageFile = imageFile {
                     imageFile.getDataInBackgroundWithBlock {
                         (imageData: NSData?, error: NSError?) -> Void in
@@ -93,7 +93,7 @@ class UserViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowShare" {
+        if segue.identifier == AppKeys.SegueIdentifiers.showShare {
             let needViewController = segue.destinationViewController as! NeedViewController
             
             needViewController.showShare = true
