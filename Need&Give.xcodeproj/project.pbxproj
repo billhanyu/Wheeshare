@@ -22,6 +22,7 @@
 		006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006B46FE1C14C1D000B24E4B /* UserViewController.swift */; };
 		0081D1EA1C27A1B700F57CAB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0081D1E91C27A1B700F57CAB /* LoadingCell.xib */; };
 		009EB5ED1C2A9EB4002303DA /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */; };
+		009EB5EF1C2EB197002303DA /* NoResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 009EB5EE1C2EB197002303DA /* NoResultsCell.xib */; };
 		00C7952D1C13CD900080F4D4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795261C13CD900080F4D4 /* Bolts.framework */; };
 		00C7952E1C13CD900080F4D4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795271C13CD900080F4D4 /* Parse.framework */; };
 		00C7952F1C13CD900080F4D4 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795281C13CD900080F4D4 /* ParseCrashReporting.framework */; };
@@ -88,6 +89,7 @@
 		006B46FE1C14C1D000B24E4B /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		0081D1E91C27A1B700F57CAB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
+		009EB5EE1C2EB197002303DA /* NoResultsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultsCell.xib; sourceTree = "<group>"; };
 		00C795261C13CD900080F4D4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		00C795271C13CD900080F4D4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		00C795281C13CD900080F4D4 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -185,24 +187,25 @@
 		002A14631BEE7905007288F6 /* Need&Give */ = {
 			isa = PBXGroup;
 			children = (
+				002A14701BEE7905007288F6 /* Info.plist */,
 				002A14641BEE7905007288F6 /* AppDelegate.swift */,
-				006B46FE1C14C1D000B24E4B /* UserViewController.swift */,
-				002A146B1BEE7905007288F6 /* Assets.xcassets */,
 				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
 				003BB0FC1BEFCAF400FF1858 /* Functions.swift */,
-				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
 				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
-				002A14701BEE7905007288F6 /* Info.plist */,
-				002A146D1BEE7905007288F6 /* LaunchScreen.storyboard */,
+				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
 				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
-				002A14681BEE7905007288F6 /* Main.storyboard */,
-				00D122861C293E0900CDCD5F /* SwiftNotice.swift */,
-				0081D1E91C27A1B700F57CAB /* LoadingCell.xib */,
+				009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */,
 				00C795561C13CFF80080F4D4 /* LoginViewController.swift */,
 				002A14981BEE83CE007288F6 /* NeedViewController.swift */,
-				009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */,
+				00D122861C293E0900CDCD5F /* SwiftNotice.swift */,
 				00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */,
+				006B46FE1C14C1D000B24E4B /* UserViewController.swift */,
 				002A14661BEE7905007288F6 /* ViewController.swift */,
+				002A146B1BEE7905007288F6 /* Assets.xcassets */,
+				0081D1E91C27A1B700F57CAB /* LoadingCell.xib */,
+				009EB5EE1C2EB197002303DA /* NoResultsCell.xib */,
+				002A146D1BEE7905007288F6 /* LaunchScreen.storyboard */,
+				002A14681BEE7905007288F6 /* Main.storyboard */,
 			);
 			path = "Need&Give";
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				002A146F1BEE7905007288F6 /* LaunchScreen.storyboard in Resources */,
 				002A146C1BEE7905007288F6 /* Assets.xcassets in Resources */,
 				0081D1EA1C27A1B700F57CAB /* LoadingCell.xib in Resources */,
+				009EB5EF1C2EB197002303DA /* NoResultsCell.xib in Resources */,
 				002A146A1BEE7905007288F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -56,8 +56,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var shareCategory: ShareCategory = .BorrowRequest
     
-    var doneButton = UIBarButtonItem(title: "Done", style: .Done, target: nil, action: Selector("dismiss"))
-    
     var firstTime = true
     
     @IBOutlet weak var tableViewBottom: NSLayoutConstraint!
@@ -69,11 +67,12 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellNib = UINib(nibName: "LoadingCell", bundle: nil)
+        var cellNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "LoadingCell")
+        cellNib = UINib(nibName: "NoResultsCell", bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultsCell")
         
         firstTime = true
-        doneButton.target = self
         currentUser = PFUser.currentUser()
         initUI()
         //refreshSelector()
@@ -93,7 +92,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableViewBottom.constant = 49
             title = "Borrow"
             tableView.reloadData()
-            self.navigationItem.rightBarButtonItem = nil
         }
         else {
             segmentedControl.hidden = false
@@ -101,7 +99,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableViewBottom.constant = 0
             title = "My Shares"
             tableView.reloadData()
-            self.navigationItem.rightBarButtonItem = doneButton
         }
 
     }
@@ -204,7 +201,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func itemQueryCompletionHandler (result result:[PFObject]!, error: NSError!, removeAll:Bool) {
         if (error == nil) {
             if removeAll {
-                givenItems.removeAll(keepCapacity: true)
+                givenItems.removeAll()
                 ITEM_SKIP_AMOUNT = 0
             }
             itemCouldLoadMore = result.count >= ITEM_SINGLE_LOAD_AMOUNT
@@ -284,8 +281,12 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
             spinner.startAnimating()
             return cell
+        case .NoResults:
+            let cell = tableView.dequeueReusableCellWithIdentifier("NoResultsCell", forIndexPath: indexPath)
+            return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("GivenCell", forIndexPath: indexPath) as! ListedCell
+            print(state)
             cell.initWithResult(givenItems[indexPath.row])
             return cell
         }

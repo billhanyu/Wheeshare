@@ -67,10 +67,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func onClickDone(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func updateUI() {
         navigationItem.title = item["Name"] as! String?
         /*self.navigationItem.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -126,31 +122,25 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func borrowRequest() {
-        // save the request in user
-        item["requester"] = PFUser.currentUser()
-        print(item["requester"])
-        item.saveInBackground()
-        
         let user = PFUser.currentUser()
-        user!["borrowRequest"] = item
-        user!.saveInBackgroundWithBlock { (success, error) -> Void in
-            if !success || error != nil {
-                let alert = UIAlertController(title: "Error", message: "Please try again later.", preferredStyle: .Alert)
-                let action = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-                alert.addAction(action)
-                self.presentViewController(alert, animated: true, completion: nil)
-                return
-            }
-            let alert = UIAlertController(title: "Requested!", message: "Wanna Email the owner?", preferredStyle: .Alert)
-            let emailAction = UIAlertAction(title: "Email", style: .Default, handler: { _ in
-                self.mail()
-            })
-            let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
-            alert.addAction(emailAction)
-            alert.addAction(cancelAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+        
+        // save the request in user
+        item["requester"] = user!
+        item.saveInBackgroundWithBlock { (success, error) -> Void in
             self.updateUI()
         }
+        
+        user!["borrowRequest"] = item
+        user!.saveInBackground()
+        
+        let alert = UIAlertController(title: "Requested!", message: "Wanna Email the owner?", preferredStyle: .Alert)
+        let emailAction = UIAlertAction(title: "Email", style: .Default, handler: { _ in
+            self.mail()})
+        let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+        alert.addAction(emailAction)
+        alert.addAction(cancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+        print("reached here")
         
         let giver = item["giver"] as! PFUser
         giver["requestedLend"] = item
