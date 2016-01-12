@@ -370,6 +370,7 @@
                                     <segment title="Request Got"/>
                                     <segment title="Lends"/>
                                 </segments>
+                                <color key="tintColor" red="0.0" green="0.52730429292929293" blue="0.43935011438179833" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segmentChanged:" destination="5sb-wF-5TU" eventType="valueChanged" id="ZKL-kc-xVW"/>
                                 </connections>
@@ -552,13 +553,13 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Condition:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6f-cq-lhX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Condition:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6f-cq-lhX">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ConditionStatus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSg-Xv-nDk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="ConditionStatus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSg-Xv-nDk">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -580,7 +581,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cr-Sj-Fns">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="9Cr-Sj-Fns">
                                 <rect key="frame" x="16" y="513" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Borrow Request"/>
@@ -611,10 +612,6 @@
                             <constraint firstItem="JKb-bV-yZx" firstAttribute="width" secondItem="OTu-HE-PnI" secondAttribute="width" multiplier="0.6" id="yML-CY-yne"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Y6f-cq-lhX"/>
-                                <exclude reference="uSg-Xv-nDk"/>
-                            </mask>
                             <mask key="constraints">
                                 <exclude reference="bDM-m3-n1c"/>
                                 <exclude reference="eBM-Yh-DsE"/>
@@ -632,15 +629,9 @@
                                 <exclude reference="yML-CY-yne"/>
                                 <exclude reference="QLw-0h-4to"/>
                                 <exclude reference="U8y-gA-AWX"/>
-                                <exclude reference="s9M-1B-06Y"/>
-                                <exclude reference="J60-wO-Vk9"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="Y6f-cq-lhX"/>
-                                <include reference="uSg-Xv-nDk"/>
-                            </mask>
                             <mask key="constraints">
                                 <include reference="bDM-m3-n1c"/>
                                 <include reference="eBM-Yh-DsE"/>
@@ -658,8 +649,6 @@
                                 <include reference="yML-CY-yne"/>
                                 <include reference="QLw-0h-4to"/>
                                 <include reference="U8y-gA-AWX"/>
-                                <include reference="s9M-1B-06Y"/>
-                                <include reference="J60-wO-Vk9"/>
                             </mask>
                         </variation>
                     </view>

@@ -32,45 +32,8 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         updateUI()
     }
     
-    func mail() {
-        if let _ = mailAddress {
-            let mailComposeViewController = configuredMailComposeViewController()
-            if MFMailComposeViewController.canSendMail() {
-                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-            }
-            else {
-                self.showSendMailErrorAlert()
-            }
-        }
-    }
-    
-    func configuredMailComposeViewController() -> MFMailComposeViewController {
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-        
-        mailComposerVC.setToRecipients([mailAddress!])
-        mailComposerVC.setSubject("I need this...")
-        if let stuffName = navigationItem.title {
-            mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
-        }
-        
-        return mailComposerVC
-    }
-    
-    func showSendMailErrorAlert() {
-        
-    }
-    
-    // MARK: MFMailComposeViewControllerDelegate
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func updateUI() {
         navigationItem.title = item[AppKeys.ItemProperties.name] as! String?
-        /*self.navigationItem.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationBar.topItem?.title =*/
         categoryNameLabel.text = item[AppKeys.ItemProperties.category] as! String?
         conditionStatus.text = item[AppKeys.ItemProperties.condition] as! String?
         contentLabel.text = item[AppKeys.ItemProperties.description] as! String?
@@ -78,18 +41,19 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         
         if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                requestButton.setTitle("Approved", forState: .Disabled)
+                requestButton.titleLabel?.text = "Approved"
+                print("approved")
             }
             else {
-                requestButton.setTitle("I requested", forState: .Disabled)
+                requestButton.titleLabel?.text = "I requested"
             }
         }
         if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                requestButton.setTitle("Approved", forState: .Disabled)
+                requestButton.titleLabel?.text = "Approved"
             }
             else {
-                requestButton.setTitle("Approve", forState: .Normal)
+                requestButton.titleLabel?.text = "Approve"
             }
         }
         
@@ -130,6 +94,8 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         let giver = item[AppKeys.ItemRelationship.owner] as! PFUser
         item[AppKeys.ItemRelationship.requestedLender] = giver
         item.saveInBackground()
+        
+        self.noticeSuccess("Requested!", autoClear: true, autoClearTime: 1)
 
         // notify the lender
     }
@@ -139,10 +105,35 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         item.saveInBackground()
         // notify the requester
     }
-}
-
-extension DetailViewController: UINavigationBarDelegate {
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
+    
+    func mail() {
+        if let _ = mailAddress {
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            }
+            else {
+                print("error")
+            }
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([mailAddress!])
+        mailComposerVC.setSubject("I need this...")
+        if let stuffName = navigationItem.title {
+            mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
+        }
+        
+        return mailComposerVC
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }

@@ -69,7 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0019028E1BEF12F50002C20C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0019028E1BEF12F50002C20C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		002A14611BEE7905007288F6 /* Need&Give.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Need&Give.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		002A14641BEE7905007288F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		002A14661BEE7905007288F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -189,24 +189,14 @@
 		002A14631BEE7905007288F6 /* Need&Give */ = {
 			isa = PBXGroup;
 			children = (
-				002A14701BEE7905007288F6 /* Info.plist */,
-				002A14641BEE7905007288F6 /* AppDelegate.swift */,
-				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
-				009EB5F01C2EB3B6002303DA /* AppKeys.swift */,
-				003BB0FC1BEFCAF400FF1858 /* AppFunctions.swift */,
-				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
-				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
-				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
-				009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */,
-				00C795561C13CFF80080F4D4 /* LoginViewController.swift */,
-				002A14981BEE83CE007288F6 /* NeedViewController.swift */,
-				00D122861C293E0900CDCD5F /* SwiftNotice.swift */,
-				00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */,
-				006B46FE1C14C1D000B24E4B /* UserViewController.swift */,
+				00F6D7271C45574A008C6A10 /* Lend */,
+				00F6D7261C455744008C6A10 /* User */,
+				00F6D7251C45573D008C6A10 /* Borrow */,
+				00F6D7241C455717008C6A10 /* Nib */,
+				00F6D7231C4556F1008C6A10 /* App */,
+				00F6D7221C4556C5008C6A10 /* Auxiliary */,
 				002A14661BEE7905007288F6 /* ViewController.swift */,
 				002A146B1BEE7905007288F6 /* Assets.xcassets */,
-				0081D1E91C27A1B700F57CAB /* LoadingCell.xib */,
-				009EB5EE1C2EB197002303DA /* NoResultsCell.xib */,
 				002A146D1BEE7905007288F6 /* LaunchScreen.storyboard */,
 				002A14681BEE7905007288F6 /* Main.storyboard */,
 			);
@@ -258,6 +248,64 @@
 			);
 			name = framework;
 			path = "parse-library-1.9.1";
+			sourceTree = "<group>";
+		};
+		00F6D7221C4556C5008C6A10 /* Auxiliary */ = {
+			isa = PBXGroup;
+			children = (
+				00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */,
+				00D122861C293E0900CDCD5F /* SwiftNotice.swift */,
+			);
+			name = Auxiliary;
+			sourceTree = "<group>";
+		};
+		00F6D7231C4556F1008C6A10 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				002A14701BEE7905007288F6 /* Info.plist */,
+				002A14641BEE7905007288F6 /* AppDelegate.swift */,
+				009EB5F01C2EB3B6002303DA /* AppKeys.swift */,
+				003BB0FC1BEFCAF400FF1858 /* AppFunctions.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		00F6D7241C455717008C6A10 /* Nib */ = {
+			isa = PBXGroup;
+			children = (
+				009EB5EE1C2EB197002303DA /* NoResultsCell.xib */,
+				0081D1E91C27A1B700F57CAB /* LoadingCell.xib */,
+			);
+			name = Nib;
+			sourceTree = "<group>";
+		};
+		00F6D7251C45573D008C6A10 /* Borrow */ = {
+			isa = PBXGroup;
+			children = (
+				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
+				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
+				009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */,
+				002A14981BEE83CE007288F6 /* NeedViewController.swift */,
+			);
+			name = Borrow;
+			sourceTree = "<group>";
+		};
+		00F6D7261C455744008C6A10 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				00C795561C13CFF80080F4D4 /* LoginViewController.swift */,
+				006B46FE1C14C1D000B24E4B /* UserViewController.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		00F6D7271C45574A008C6A10 /* Lend */ = {
+			isa = PBXGroup;
+			children = (
+				00FEF0551C0CEC0800A1C18A /* GivenItem.swift */,
+				002A149A1BEE847F007288F6 /* GiveViewController.swift */,
+			);
+			name = Lend;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

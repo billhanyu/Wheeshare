@@ -75,15 +75,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         firstTime = true
         currentUser = PFUser.currentUser()
         initUI()
-        //refreshSelector()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
         refreshSelector()
-        if let _ = PFUser.currentUser() {
-            fillTelNumber()
-        }
         
         // no as showshareVC
         if (!showShare) {
@@ -100,7 +92,14 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             title = "My Shares"
             tableView.reloadData()
         }
-
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        //refreshSelector()
+        if let _ = PFUser.currentUser() {
+            fillTelNumber()
+        }
     }
     
     func fillTelNumber() {
@@ -286,7 +285,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier(AppKeys.CellIdentifiers.listedCell, forIndexPath: indexPath) as! ListedCell
-            print(state)
             cell.initWithResult(givenItems[indexPath.row])
             return cell
         }
