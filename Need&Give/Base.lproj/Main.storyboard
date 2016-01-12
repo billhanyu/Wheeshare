@@ -581,21 +581,12 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="9Cr-Sj-Fns">
-                                <rect key="frame" x="16" y="513" width="343" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Borrow Request"/>
-                                <connections>
-                                    <action selector="requestButtonClicked:" destination="heL-N0-JwE" eventType="touchUpInside" id="ZHO-HD-kPp"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="JKb-bV-yZx" firstAttribute="top" secondItem="HjJ-4a-Zek" secondAttribute="bottom" constant="8" id="927-yg-6cG"/>
                             <constraint firstItem="acL-Aq-086" firstAttribute="leading" secondItem="OTu-HE-PnI" secondAttribute="leadingMargin" constant="43" id="Hsu-jA-N0D"/>
                             <constraint firstItem="8LS-oz-ezM" firstAttribute="centerX" secondItem="OTu-HE-PnI" secondAttribute="centerX" id="Iph-Yp-fBe"/>
-                            <constraint firstItem="YnK-o9-AH4" firstAttribute="top" secondItem="9Cr-Sj-Fns" secondAttribute="bottom" constant="50" id="J60-wO-Vk9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Pvz-xI-ZQw" secondAttribute="trailing" constant="43" id="QLw-0h-4to"/>
                             <constraint firstItem="uSg-Xv-nDk" firstAttribute="baseline" secondItem="Y6f-cq-lhX" secondAttribute="baseline" id="Tzy-PK-G5e"/>
                             <constraint firstItem="Pvz-xI-ZQw" firstAttribute="top" secondItem="8LS-oz-ezM" secondAttribute="bottom" constant="8" id="U8y-gA-AWX"/>
@@ -608,7 +599,6 @@
                             <constraint firstItem="Y6f-cq-lhX" firstAttribute="leading" secondItem="acL-Aq-086" secondAttribute="leading" id="eBM-Yh-DsE"/>
                             <constraint firstItem="8LS-oz-ezM" firstAttribute="width" secondItem="OTu-HE-PnI" secondAttribute="width" multiplier="0.618" id="hTp-QD-P4z"/>
                             <constraint firstItem="HjJ-4a-Zek" firstAttribute="top" secondItem="Y6f-cq-lhX" secondAttribute="bottom" constant="10" id="k2E-hP-9Lg"/>
-                            <constraint firstItem="9Cr-Sj-Fns" firstAttribute="centerX" secondItem="OTu-HE-PnI" secondAttribute="centerX" id="s9M-1B-06Y"/>
                             <constraint firstItem="JKb-bV-yZx" firstAttribute="width" secondItem="OTu-HE-PnI" secondAttribute="width" multiplier="0.6" id="yML-CY-yne"/>
                         </constraints>
                         <variation key="default">
@@ -659,7 +649,6 @@
                         <outlet property="conditionStatus" destination="uSg-Xv-nDk" id="Ku6-gq-MRq"/>
                         <outlet property="contentLabel" destination="JKb-bV-yZx" id="mKI-dm-PIn"/>
                         <outlet property="imageView" destination="8LS-oz-ezM" id="p15-2M-So9"/>
-                        <outlet property="requestButton" destination="9Cr-Sj-Fns" id="UTP-mf-05w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDd-kx-Izd" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,13 +17,19 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var conditionStatus: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var requestButton: UIButton!
+	
+	var currentButton: UIButton?
+	let requestButton = UIButton()
+	let approveButton = UIButton()
+	let requestedLabel = UILabel()
+	let approvedLabel = UILabel()
     
     var item: PFObject!
     var mailAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		setupButtons()
         updateUI()
     }
     
@@ -31,6 +37,42 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         super.viewDidAppear(true)
         updateUI()
     }
+	
+	private func setupButtons() {
+		// request button
+		requestButton.setTitle("Request", forState: .Normal)
+		requestButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+		requestButton.backgroundColor = UIColor(red: 0.0, green: 200.0, blue: 50.0, alpha: 1.0)
+		requestButton.layer.cornerRadius = 10.0
+		requestButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		requestButton.addTarget(self, action: Selector("borrowRequest"), forControlEvents: UIControlEvents.TouchUpInside)
+		
+		// approve button
+		approveButton.setTitle("Approve", forState: .Normal)
+		approveButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+		approveButton.backgroundColor = UIColor(red: 0.0, green: 200.0, blue: 50.0, alpha: 1.0)
+		approveButton.layer.cornerRadius = 10.0
+		approveButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		approveButton.addTarget(self, action: Selector("borrowApprove"), forControlEvents: UIControlEvents.TouchUpInside)
+		
+		// requested label
+		requestedLabel.textColor = UIColor.whiteColor()
+		requestedLabel.text = "I Requested"
+		requestedLabel.textAlignment = .Center
+		requestedLabel.backgroundColor = UIColor.darkGrayColor()
+		requestedLabel.layer.cornerRadius = 10.0
+		requestedLabel.clipsToBounds = true
+		requestedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		
+		// approved label
+		approvedLabel.textColor = UIColor.whiteColor()
+		approvedLabel.text = "Approved"
+		approvedLabel.textAlignment = .Center
+		approvedLabel.backgroundColor = UIColor.darkGrayColor()
+		approvedLabel.layer.cornerRadius = 10.0
+		approvedLabel.clipsToBounds = true
+		approvedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+	}
     
     func updateUI() {
         navigationItem.title = item[AppKeys.ItemProperties.name] as! String?
@@ -41,21 +83,23 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         
         if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                requestButton.titleLabel?.text = "Approved"
-                print("approved")
+                view.addSubview(approvedLabel)
             }
             else {
-                requestButton.titleLabel?.text = "I requested"
+                view.addSubview(requestedLabel)
             }
         }
-        if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
+        else if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                requestButton.titleLabel?.text = "Approved"
+                view.addSubview(approvedLabel)
             }
             else {
-                requestButton.titleLabel?.text = "Approve"
+                view.addSubview(approveButton)
             }
         }
+		else {
+			view.addSubview(requestButton)
+		}
         
         let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
         
@@ -75,15 +119,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         view.layoutIfNeeded()
     }
     
-    @IBAction func requestButtonClicked(sender: AnyObject) {
-        if requestButton.titleLabel?.text == "Borrow Request" {
-            borrowRequest()
-        }
-        else if requestButton.titleLabel?.text == "Approve" {
-            borrowApprove()
-        }
-    }
-    
     func borrowRequest() {
         let user = PFUser.currentUser()
         
@@ -96,6 +131,12 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         item.saveInBackground()
         
         self.noticeSuccess("Requested!", autoClear: true, autoClearTime: 1)
+		
+		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
+				self.requestButton.removeFromSuperview()
+			}, completion: { _ in
+				self.view.addSubview(self.requestedLabel)
+		})
 
         // notify the lender
     }
@@ -103,6 +144,14 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     func borrowApprove() {
         item[AppKeys.ItemRelationship.connected] = true
         item.saveInBackground()
+		
+		self.noticeSuccess("Approved!", autoClear: true, autoClearTime: 1)
+		
+		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
+			self.approveButton.removeFromSuperview()
+			}, completion: { _ in
+				self.view.addSubview(self.approvedLabel)
+		})
         // notify the requester
     }
     
