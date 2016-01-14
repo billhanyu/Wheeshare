@@ -174,6 +174,13 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
                     })
                 }
             }
+            
+            let user = PFUser.currentUser()!
+            var ownedObjects = user[AppKeys.User.owned] as! [PFObject]
+            ownedObjects.append(given)
+            user[AppKeys.User.owned] = ownedObjects
+            user.saveInBackground()
+            
             flush()
         }
     }

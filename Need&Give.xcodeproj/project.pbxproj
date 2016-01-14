@@ -47,6 +47,7 @@
 		00C795551C13CEEF0080F4D4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C795541C13CEEF0080F4D4 /* Social.framework */; };
 		00C795571C13CFF80080F4D4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C795561C13CFF80080F4D4 /* LoginViewController.swift */; };
 		00D122871C293E0900CDCD5F /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D122861C293E0900CDCD5F /* SwiftNotice.swift */; };
+		00D51F5C1C47A38C0099BEB6 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D51F5B1C47A38C0099BEB6 /* ImageViewController.swift */; };
 		00FEF0541C0CDC5D00A1C18A /* UIImage+Compress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */; };
 		00FEF0561C0CEC0800A1C18A /* GivenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEF0551C0CEC0800A1C18A /* GivenItem.swift */; };
 /* End PBXBuildFile section */
@@ -115,6 +116,7 @@
 		00C795541C13CEEF0080F4D4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		00C795561C13CFF80080F4D4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		00D122861C293E0900CDCD5F /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
+		00D51F5B1C47A38C0099BEB6 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		00FEF0531C0CDC5D00A1C18A /* UIImage+Compress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compress.swift"; sourceTree = "<group>"; };
 		00FEF0551C0CEC0800A1C18A /* GivenItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GivenItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,6 +284,7 @@
 		00F6D7251C45573D008C6A10 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
+				00D51F5B1C47A38C0099BEB6 /* ImageViewController.swift */,
 				0019028E1BEF12F50002C20C /* DetailViewController.swift */,
 				002A14EE1BEEC81F007288F6 /* ListedCell.swift */,
 				009EB5EC1C2A9EB4002303DA /* LoadMoreTableFooterView.swift */,
@@ -450,6 +453,7 @@
 				002A149B1BEE847F007288F6 /* GiveViewController.swift in Sources */,
 				006B46FF1C14C1D000B24E4B /* UserViewController.swift in Sources */,
 				002A14651BEE7905007288F6 /* AppDelegate.swift in Sources */,
+				00D51F5C1C47A38C0099BEB6 /* ImageViewController.swift in Sources */,
 				009EB5ED1C2A9EB4002303DA /* LoadMoreTableFooterView.swift in Sources */,
 				002A14991BEE83CE007288F6 /* NeedViewController.swift in Sources */,
 				009EB5F11C2EB3B6002303DA /* AppKeys.swift in Sources */,

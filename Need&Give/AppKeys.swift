@@ -20,6 +20,7 @@ struct AppKeys {
         static let profilePic = "profilePic"
         static let facebookID = "FBID"
         static let telephone = "telNum"
+        static let owned = "owned"
     }
     
     struct ItemProperties {

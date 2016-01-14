@@ -29,6 +29,9 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tapImageGesture = UITapGestureRecognizer(target: self, action: Selector("showImage"))
+		imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(tapImageGesture)
 		setupButtons()
         updateUI()
     }
@@ -165,6 +168,14 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
                 print("error")
             }
         }
+    }
+    
+    func showImage() {
+		if let itemImage = imageView.image {
+			let imageVC = storyboard!.instantiateViewControllerWithIdentifier("ImageViewController") as! ImageViewController
+			imageVC.image = itemImage
+			self.presentViewController(imageVC, animated: true, completion: nil)
+		}
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
