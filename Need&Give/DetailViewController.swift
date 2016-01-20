@@ -17,66 +17,94 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var conditionStatus: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var emailButton: UIButton!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+	
+	var currentButton: UIButton?
+	let requestButton = UIButton()
+	let approveButton = UIButton()
+	let requestedLabel = UILabel()
+	let approvedLabel = UILabel()
     
     var item: PFObject!
     var mailAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.delegate = self
+        let tapImageGesture = UITapGestureRecognizer(target: self, action: Selector("showImage"))
+		imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(tapImageGesture)
+		setupButtons()
         updateUI()
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func mail(sender: AnyObject) {
-        mailAddress = emailButton.titleLabel?.text
-        if let _ = mailAddress {
-            let mailComposeViewController = configuredMailComposeViewController()
-            if MFMailComposeViewController.canSendMail() {
-                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-            } else {
-                self.showSendMailErrorAlert()
-            }
-        }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        updateUI()
     }
-    
-    func configuredMailComposeViewController() -> MFMailComposeViewController {
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-        
-        mailComposerVC.setToRecipients([mailAddress!])
-        mailComposerVC.setSubject("I need this...")
-        if let stuffName = navigationBar.topItem?.title {
-            mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
-        }
-        
-        return mailComposerVC
-    }
-    
-    func showSendMailErrorAlert() {
-        
-    }
-    
-    // MARK: MFMailComposeViewControllerDelegate
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func onClickDone(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+	
+	private func setupButtons() {
+		// request button
+		requestButton.setTitle("Request", forState: .Normal)
+		requestButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+		requestButton.backgroundColor = UIColor(red: 0.0, green: 200.0, blue: 50.0, alpha: 1.0)
+		requestButton.layer.cornerRadius = 10.0
+		requestButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		requestButton.addTarget(self, action: Selector("borrowRequest"), forControlEvents: UIControlEvents.TouchUpInside)
+		
+		// approve button
+		approveButton.setTitle("Approve", forState: .Normal)
+		approveButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+		approveButton.backgroundColor = UIColor(red: 0.0, green: 200.0, blue: 50.0, alpha: 1.0)
+		approveButton.layer.cornerRadius = 10.0
+		approveButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		approveButton.addTarget(self, action: Selector("borrowApprove"), forControlEvents: UIControlEvents.TouchUpInside)
+		
+		// requested label
+		requestedLabel.textColor = UIColor.whiteColor()
+		requestedLabel.text = "I Requested"
+		requestedLabel.textAlignment = .Center
+		requestedLabel.backgroundColor = UIColor.darkGrayColor()
+		requestedLabel.layer.cornerRadius = 10.0
+		requestedLabel.clipsToBounds = true
+		requestedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		
+		// approved label
+		approvedLabel.textColor = UIColor.whiteColor()
+		approvedLabel.text = "Approved"
+		approvedLabel.textAlignment = .Center
+		approvedLabel.backgroundColor = UIColor.darkGrayColor()
+		approvedLabel.layer.cornerRadius = 10.0
+		approvedLabel.clipsToBounds = true
+		approvedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+	}
     
     func updateUI() {
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationBar.topItem?.title = item["Name"] as! String?
-        categoryNameLabel.text = item["category"] as! String?
-        conditionStatus.text = item["condition"] as! String?
-        contentLabel.text = item["detail"] as! String?
-        emailButton.setTitle(item["mailAddress"] as! String?, forState: .Normal)
-        let imageFile = item["image"] as? PFFile
+        navigationItem.title = item[AppKeys.ItemProperties.name] as! String?
+        categoryNameLabel.text = item[AppKeys.ItemProperties.category] as! String?
+        conditionStatus.text = item[AppKeys.ItemProperties.condition] as! String?
+        contentLabel.text = item[AppKeys.ItemProperties.description] as! String?
+        requestButton.enabled = true
+        
+        if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
+            if item[AppKeys.ItemRelationship.connected] as! Bool {
+                view.addSubview(approvedLabel)
+            }
+            else {
+                view.addSubview(requestedLabel)
+            }
+        }
+        else if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
+            if item[AppKeys.ItemRelationship.connected] as! Bool {
+                view.addSubview(approvedLabel)
+            }
+            else {
+                view.addSubview(approveButton)
+            }
+        }
+		else {
+			view.addSubview(requestButton)
+		}
+        
+        let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
         
         if let imageFile = imageFile {
             imageFile.getDataInBackgroundWithBlock {
@@ -90,12 +118,82 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
                 }
             }
         }
+        
+        view.layoutIfNeeded()
     }
+    
+    func borrowRequest() {
+        let user = PFUser.currentUser()
+        
+        // save the request in user
+        item[AppKeys.ItemRelationship.requester] = user!
+        item.saveInBackground()
+        
+        let giver = item[AppKeys.ItemRelationship.owner] as! PFUser
+        item[AppKeys.ItemRelationship.requestedLender] = giver
+        item.saveInBackground()
+        
+        self.noticeSuccess("Requested!", autoClear: true, autoClearTime: 1)
+		
+		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
+				self.requestButton.removeFromSuperview()
+			}, completion: { _ in
+				self.view.addSubview(self.requestedLabel)
+		})
 
-}
-
-extension DetailViewController: UINavigationBarDelegate {
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
+        // notify the lender
+    }
+    
+    func borrowApprove() {
+        item[AppKeys.ItemRelationship.connected] = true
+        item.saveInBackground()
+		
+		self.noticeSuccess("Approved!", autoClear: true, autoClearTime: 1)
+		
+		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
+			self.approveButton.removeFromSuperview()
+			}, completion: { _ in
+				self.view.addSubview(self.approvedLabel)
+		})
+        // notify the requester
+    }
+    
+    func mail() {
+        if let _ = mailAddress {
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            }
+            else {
+                print("error")
+            }
+        }
+    }
+    
+    func showImage() {
+		if let itemImage = imageView.image {
+			let imageVC = storyboard!.instantiateViewControllerWithIdentifier("ImageViewController") as! ImageViewController
+			imageVC.image = itemImage
+			self.presentViewController(imageVC, animated: true, completion: nil)
+		}
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([mailAddress!])
+        mailComposerVC.setSubject("I need this...")
+        if let stuffName = navigationItem.title {
+            mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
+        }
+        
+        return mailComposerVC
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }

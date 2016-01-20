@@ -11,8 +11,6 @@ import Parse
 
 class UserViewController: UITableViewController {
     
-    var user: PFUser?
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profilePic: UIImageView!
@@ -20,27 +18,26 @@ class UserViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = PFUser.currentUser()
         initUI()
     }
     
     func initUI() {
-        if let name = user?.username {
+        if let name = PFUser.currentUser()?.username {
             nameLabel.text = name
         }
-        if let email = user?.email {
+        if let email = PFUser.currentUser()?.email {
             emailLabel.text = email
         }
         
         // set profile picture & phone number
         let query = PFUser.query()
-        query?.getObjectInBackgroundWithId((user?.objectId)!, block: {
+        query?.getObjectInBackgroundWithId((PFUser.currentUser()?.objectId)!, block: {
             (person: PFObject?, error:NSError?) -> Void in
             if let person = person {
-                let telNum = person["telNum"] as? String
+                let telNum = person[AppKeys.User.telephone] as? String
                 self.telNumLabel.text = telNum
                 
-                let imageFile = person["profilePic"]
+                let imageFile = person[AppKeys.User.profilePic]
                 if let imageFile = imageFile {
                     imageFile.getDataInBackgroundWithBlock {
                         (imageData: NSData?, error: NSError?) -> Void in
@@ -66,15 +63,13 @@ class UserViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0: return 4
-        case 1: return 2
-        case 2: return 1
         default: return 1
         }
     }
@@ -96,56 +91,12 @@ class UserViewController: UITableViewController {
             presentViewController(alert, animated: true, completion: nil)
         }
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-        return cell
-    }*/
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == AppKeys.SegueIdentifiers.showShare {
+            let needViewController = segue.destinationViewController as! NeedViewController
+            
+            needViewController.showShare = true
+        }
     }
-    */
-
 }

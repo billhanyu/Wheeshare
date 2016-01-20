@@ -14,25 +14,17 @@ import Bolts
 class GivenItem {
     var name: String?
     var detail: String?
-    var location: String?
-    var organization: String?
-    var mailAddress: String?
-    var phoneNumber: String?
     var category: String?
     var image: UIImage?
     var condition: String?
     
     func configureWithPFObject(given: PFObject!) {
-        name = given["Name"] as! String?
-        detail = given["detail"] as! String?
-        location = given["location"] as! String?
-        organization = given["organization"] as! String?
-        mailAddress = given["mailAddress"] as! String?
-        phoneNumber = given["phoneNumber"] as! String?
-        category = given["category"] as! String?
-        condition = given["condition"] as! String?
+        name = given[AppKeys.ItemProperties.name] as! String?
+        detail = given[AppKeys.ItemProperties.description] as! String?
+        category = given[AppKeys.ItemProperties.category] as! String?
+        condition = given[AppKeys.ItemProperties.condition] as! String?
         
-        let imageFile = given["image"] as? PFFile
+        let imageFile = given[AppKeys.ItemProperties.image] as? PFFile
 
         if let imageFile = imageFile {
             imageFile.getDataInBackgroundWithBlock {

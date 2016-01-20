@@ -27,7 +27,10 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        initUI()
+    }
+    
+    func initUI() {
         var frameRect: CGRect = detail.frame;
         frameRect.size.height = 75;
         detail.frame = frameRect;
@@ -37,6 +40,17 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func flush() {
+        name.text = ""
+        detail.text = ""
+        categoryLabel.text = categories[0]
+        imageSelected.image = nil
+        imageSelected.hidden = true
+        addPhotoLabel.hidden = false
+        expand = false
+        tableView.reloadData()
     }
     
     func hideKeyboard(gestureRecognizer: UIGestureRecognizer) {
@@ -49,16 +63,6 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         }
         
         name.resignFirstResponder()
-    }
-    
-    func hud() {
-        print("supposed to be showing hud")
-        
-        let hudView = HudView.hudInView(self.view, animated: true)
-        hudView.text = "Lended!"
-        afterDelay(0.6, closure: {
-            hudView.removeFromSuperview()
-        })
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -112,16 +116,16 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
         imageCenterY.active = false
         imageRatio.constant = 1
         addPhotoLabel.hidden = true
+        name.becomeFirstResponder()
         view.layoutIfNeeded()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "Given" {
+        if segue.identifier == AppKeys.SegueIdentifiers.lendItem {
             if validateInput() == false {
                 return
             }
-            
-            hud()
+            self.pleaseWait()
             
             var imageFile: PFFile?
             if let image = image {
@@ -129,11 +133,11 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
                 imageFile = PFFile(name:"image.png", data:imageData)
             }
             let given = PFObject(className:"Needs")
-            given["giver"] = PFUser.currentUser()
-            given["Name"] = name.text
-            given["detail"] = detail.text
-            given["category"] = categoryLabel.text
-            given["mailAddress"] = PFUser.currentUser()?.email
+            given[AppKeys.ItemRelationship.owner] = PFUser.currentUser()
+            given[AppKeys.ItemProperties.name] = name.text
+            given[AppKeys.ItemProperties.description] = detail.text
+            given[AppKeys.ItemProperties.category] = categoryLabel.text
+            given[AppKeys.ItemRelationship.connected] = false
             var conditionName = ""
             if conditionSlider.value == 100 {
                 conditionName = "Perfect"
@@ -147,18 +151,35 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             else {
                 conditionName = "Old"
             }
-            given["condition"] = conditionName
+            given[AppKeys.ItemProperties.condition] = conditionName
             if let imageFile = imageFile {
-                given["image"] = imageFile
+                given[AppKeys.ItemProperties.image] = imageFile
             }
             given.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
+                self.clearAllNotice()
                 if (success) {
                     print("Given object info saved")
+                    UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                            self.noticeSuccess("Lended!")
+                        }, completion: { _ in
+                            delay(seconds: 0.8) {self.clearAllNotice()}
+                    })
                 } else {
                     print("Given object info saving failure")
+                    UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                        self.noticeError("Error")
+                        }, completion: { _ in
+                            delay(seconds: 0.8) {self.clearAllNotice()}
+                    })
                 }
             }
+            
+            let user = PFUser.currentUser()!
+            var ownedObjects = user[AppKeys.User.owned] as! [PFObject]
+            ownedObjects.append(given)
+            user[AppKeys.User.owned] = ownedObjects
+            user.saveInBackground()
             
             flush()
         }
@@ -166,25 +187,14 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
     
     func validateInput() -> Bool {
         if name.text == "" {
-            let alertController = UIAlertController(title: "Cannot Post", message: "Please fill in a name", preferredStyle: .Alert)
-            let alertButton = UIAlertAction(title: "OK", style: .Cancel, handler: {
-                (action: UIAlertAction!) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
+                self.noticeError("Info Needed")
+                }, completion: { _ in
+                    delay(seconds: 0.8) {self.clearAllNotice()}
             })
-            alertController.addAction(alertButton)
-            self.presentViewController(alertController, animated: true, completion: nil)
             return false
         }
         return true
-    }
-    
-    func flush() {
-        name.text = ""
-        detail.text = ""
-        categoryLabel.text = categories[0]
-        imageSelected.image = nil
-        expand = false
-        tableView.reloadData()
     }
     
     // MARK: UIPickerView Delegate & DataSource

@@ -29,7 +29,8 @@ class ListedCell: UITableViewCell {
                 (imageData: NSData?, error: NSError?) -> Void in
                 if error == nil {
                     if let imageData = imageData {
-                        self.givenImageView.image = UIImage(data:imageData)
+                        let data = imageDataScaledToHeight(imageData, height: 120)
+                        self.givenImageView.image = UIImage(data: data)
                     }
                 }
             }
