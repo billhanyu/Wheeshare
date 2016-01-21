@@ -21,8 +21,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	var currentButton: UIButton?
 	let requestButton = UIButton()
 	let approveButton = UIButton()
+	let emailButton = UIButton()
 	let requestedLabel = UILabel()
 	let approvedLabel = UILabel()
+	let query = PFUser.query()!
     
     var item: PFObject!
     var mailAddress: String?
@@ -58,6 +60,14 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		approveButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
 		approveButton.addTarget(self, action: Selector("borrowApprove"), forControlEvents: UIControlEvents.TouchUpInside)
 		
+		// email button
+		emailButton.setTitle("email", forState: .Normal)
+		emailButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		emailButton.backgroundColor = UIColor(red: 25/255, green: 95/255, blue: 88/255, alpha: 1)
+		emailButton.layer.cornerRadius = 10.0
+		emailButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 10 * 7), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		emailButton.addTarget(self, action: Selector("email"), forControlEvents: UIControlEvents.TouchUpInside)
+		
 		// requested label
 		requestedLabel.textColor = UIColor.whiteColor()
 		requestedLabel.text = "I Requested"
@@ -83,8 +93,17 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         conditionStatus.text = item[AppKeys.ItemProperties.condition] as! String?
         contentLabel.text = item[AppKeys.ItemProperties.description] as! String?
         requestButton.enabled = true
+		imageView.layer.cornerRadius = 20.0
         
         if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
+			if let owner = item[AppKeys.ItemRelationship.requestedLender] as? PFUser {
+				query.getObjectInBackgroundWithId(owner.objectId!, block: { (lender: PFObject?, error: NSError?) -> Void in
+					if let lender = lender {
+						self.mailAddress = String(lender[AppKeys.User.email])
+					}
+				})
+			}
+			
             if item[AppKeys.ItemRelationship.connected] as! Bool {
                 view.addSubview(approvedLabel)
             }
@@ -93,6 +112,14 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             }
         }
         else if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
+			if let requester = item[AppKeys.ItemRelationship.requester] as? PFUser {
+				query.getObjectInBackgroundWithId(requester.objectId!, block: { (borrower: PFObject?, error: NSError?) -> Void in
+					if let borrower = borrower {
+						self.mailAddress = String(borrower[AppKeys.User.email])
+					}
+				})
+			}
+			
             if item[AppKeys.ItemRelationship.connected] as! Bool {
                 view.addSubview(approvedLabel)
             }
@@ -103,6 +130,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		else {
 			view.addSubview(requestButton)
 		}
+		view.addSubview(emailButton)
         
         let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
         
@@ -177,6 +205,11 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 			self.presentViewController(imageVC, animated: true, completion: nil)
 		}
     }
+	
+	func email() {
+		let mailVC = configuredMailComposeViewController()
+		presentViewController(mailVC, animated: true, completion: nil)
+	}
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
