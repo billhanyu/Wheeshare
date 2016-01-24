@@ -41,6 +41,7 @@ struct AppKeys {
         static let lendItem = "Given"
         static let detailReveal = "DetailReveal"
         static let showShare = "ShowShare"
+        static let showOwn = "ShowOwn"
     }
     
     struct ItemRelationship {

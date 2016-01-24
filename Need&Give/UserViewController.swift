@@ -70,7 +70,7 @@ class UserViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0: return 4
-        default: return 1
+        default: return 2
         }
     }
     
@@ -93,10 +93,12 @@ class UserViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let needViewController = segue.destinationViewController as! NeedViewController
         if segue.identifier == AppKeys.SegueIdentifiers.showShare {
-            let needViewController = segue.destinationViewController as! NeedViewController
-            
-            needViewController.showShare = true
+            needViewController.showCategory = .ShowShare
+        }
+        else if segue.identifier == AppKeys.SegueIdentifiers.showOwn {
+            needViewController.showCategory = .ShowOwn
         }
     }
 }

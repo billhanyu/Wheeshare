@@ -36,6 +36,13 @@ enum State {
     case NoResults
     case Results
 }
+
+enum ShowCategory {
+    case ShowShare
+    case ShowOwn
+    case ShowAll
+}
+
 private(set) var state: State = .NotSearchedYet
 
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoadMoreTableFooterViewDelegate {
@@ -51,7 +58,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var itemQueryCompletionCounter = 0
     
     var selectRow: Int!
-    var showShare: Bool = false
+    var showCategory: ShowCategory = .ShowAll
     var currentUser: PFUser?
     
     var shareCategory: ShareCategory = .BorrowRequest
@@ -78,18 +85,23 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshSelector()
         
         // no as showshareVC
-        if (!showShare) {
+        switch showCategory {
+        case .ShowAll:
             segmentedControl.hidden = true
             tableViewTop.constant = 0
             tableViewBottom.constant = 49
             title = "Borrow"
             tableView.reloadData()
-        }
-        else {
+        case .ShowShare:
             segmentedControl.hidden = false
             tableViewTop.constant = 39
             tableViewBottom.constant = 0
             title = "My Shares"
+            tableView.reloadData()
+        case .ShowOwn:
+            segmentedControl.hidden = true
+            tableViewTop.constant = 0
+            title = "My Stuff"
             tableView.reloadData()
         }
     }
@@ -207,12 +219,12 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ITEM_SKIP_AMOUNT += result.count
             print("Find \(result.count) items.")
             
-            if !self.showShare {
+            switch showCategory {
+            case .ShowAll:
                 for given in result! {
                     self.givenItems.append(given)
                 }
-            }
-            else {
+            case .ShowShare:
                 for given in result! {
                     let borrowUser = given[AppKeys.ItemRelationship.requester] as? PFUser == self.currentUser
                     let connected = given[AppKeys.ItemRelationship.connected] as! Bool
@@ -234,6 +246,13 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         if lendUser && connected {
                             self.givenItems.append(given)
                         }
+                    }
+                }
+            case .ShowOwn:
+                for given in result! {
+                    let isOwner = given[AppKeys.ItemRelationship.owner] as? PFUser == self.currentUser
+                    if isOwner {
+                        self.givenItems.append(given)
                     }
                 }
             }

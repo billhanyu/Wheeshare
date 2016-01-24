@@ -125,8 +125,8 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             if validateInput() == false {
                 return
             }
-            self.pleaseWait()
-            
+            //self.pleaseWait()
+            print("after showing wait message")
             var imageFile: PFFile?
             if let image = image {
                 let imageData = image.mediumQualityJPEGNSData
@@ -155,9 +155,11 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             if let imageFile = imageFile {
                 given[AppKeys.ItemProperties.image] = imageFile
             }
+            print("before saving in background")
             given.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
                 self.clearAllNotice()
+                print("saving in background")
                 if (success) {
                     print("Given object info saved")
                     UIView.animateWithDuration(0.0, delay: 0.0, options: [], animations: {
@@ -174,6 +176,8 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
                     })
                 }
             }
+            
+            print("after the saving block")
             
             let user = PFUser.currentUser()!
             var ownedObjects = user[AppKeys.User.owned] as! [PFObject]
