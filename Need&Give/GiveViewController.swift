@@ -158,7 +158,7 @@ class GiveViewController: UITableViewController, UIPickerViewDataSource, UIPicke
             print("before saving in background")
             given.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
-                self.clearAllNotice()
+                //self.clearAllNotice()
                 print("saving in background")
                 if (success) {
                     print("Given object info saved")
