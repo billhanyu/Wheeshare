@@ -69,8 +69,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var tableViewTop: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-
-    @IBOutlet weak var shareDone: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +153,11 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         itemLoadMoreFooterView.delegate = self
         itemLoadMoreFooterView.backgroundColor = UIColor.clearColor()
         tableView.addSubview(itemLoadMoreFooterView)
+        
+        // add edit button
+        if showCategory == .ShowOwn {
+            navigationItem.rightBarButtonItem = editButtonItem()
+        }
     }
     
     func refreshSelector() {

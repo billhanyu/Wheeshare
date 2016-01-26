@@ -100,6 +100,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 				query.getObjectInBackgroundWithId(owner.objectId!, block: { (lender: PFObject?, error: NSError?) -> Void in
 					if let lender = lender {
 						self.mailAddress = String(lender[AppKeys.User.email])
+						self.view.addSubview(self.emailButton)
 					}
 				})
 			}
@@ -116,6 +117,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 				query.getObjectInBackgroundWithId(requester.objectId!, block: { (borrower: PFObject?, error: NSError?) -> Void in
 					if let borrower = borrower {
 						self.mailAddress = String(borrower[AppKeys.User.email])
+						self.view.addSubview(self.emailButton)
 					}
 				})
 			}
@@ -130,7 +132,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		else {
 			view.addSubview(requestButton)
 		}
-		view.addSubview(emailButton)
         
         let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
         
