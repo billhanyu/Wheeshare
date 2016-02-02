@@ -15,11 +15,11 @@ class ListedCell: UITableViewCell {
     
     @IBOutlet weak var givenImageView: UIImageView!
     @IBOutlet weak var givenName: UILabel!
-    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     func initWithResult(result: PFObject) {
         self.givenName.text = result["Name"] as! String?
-        self.location.text = result["location"] as! String?
+        self.statusLabel.text = ""
         self.givenImageView.frame = CGRect(x: 15, y: 10, width: 80, height: 80)
         
         let imageFile = result["image"] as? PFFile
@@ -41,7 +41,7 @@ class ListedCell: UITableViewCell {
         super.prepareForReuse()
         
         givenName.text = nil
-        location.text = nil
+        statusLabel.text = nil
         givenImageView.image = nil
     }
 }

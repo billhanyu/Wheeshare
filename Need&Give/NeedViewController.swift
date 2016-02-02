@@ -13,8 +13,6 @@ import Bolts
 enum ShareCategory: Int {
     case BorrowRequest = 0
     case Borrow = 1
-    case LendRequest = 2
-    case Lend = 3
     
     var categoryName: String {
         switch self {
@@ -22,10 +20,6 @@ enum ShareCategory: Int {
             return "borrowRequest"
         case .Borrow:
             return "borrow"
-        case .LendRequest:
-            return "lendRequest"
-        case .Lend:
-            return "lend"
         }
     }
 }
@@ -60,7 +54,6 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectRow: Int!
     var showCategory: ShowCategory = .ShowAll
     var currentUser: PFUser?
-    
     var shareCategory: ShareCategory = .BorrowRequest
     
     var firstTime = true
@@ -109,6 +102,16 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //refreshSelector()
         if let _ = PFUser.currentUser() {
             fillTelNumber()
+        }
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            tableView.setEditing(true, animated: animated)
+        }
+        else {
+            tableView.setEditing(false, animated: animated)
         }
     }
     
@@ -231,22 +234,13 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 for given in result! {
                     let borrowUser = given[AppKeys.ItemRelationship.requester] as? PFUser == self.currentUser
                     let connected = given[AppKeys.ItemRelationship.connected] as! Bool
-                    let lendUser = given[AppKeys.ItemRelationship.requestedLender] as? PFUser == self.currentUser
                     switch self.shareCategory{
                     case .BorrowRequest:
                         if borrowUser && !connected {
                             self.givenItems.append(given)
                         }
-                    case .LendRequest:
-                        if lendUser && !connected {
-                            self.givenItems.append(given)
-                        }
                     case .Borrow:
                         if borrowUser && connected {
-                            self.givenItems.append(given)
-                        }
-                    case .Lend:
-                        if lendUser && connected {
                             self.givenItems.append(given)
                         }
                     }

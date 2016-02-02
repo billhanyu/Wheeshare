@@ -365,10 +365,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-ss-c8b">
                                 <rect key="frame" x="-60" y="-14" width="121" height="29"/>
                                 <segments>
-                                    <segment title="My Request"/>
+                                    <segment title="Requests"/>
                                     <segment title="Borrows"/>
-                                    <segment title="Request Got"/>
-                                    <segment title="Lends"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.52730429292929293" blue="0.43935011438179833" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -392,7 +390,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ht9-e8-VRU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ht9-e8-VRU">
                                                     <rect key="frame" x="103" y="50" width="148" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -450,7 +448,7 @@
                                         <connections>
                                             <outlet property="givenImageView" destination="K8b-tV-2Rn" id="sXR-Ky-ejp"/>
                                             <outlet property="givenName" destination="6Hm-F8-Caz" id="8YP-JZ-6KX"/>
-                                            <outlet property="location" destination="Ht9-e8-VRU" id="nAF-Th-8C9"/>
+                                            <outlet property="statusLabel" destination="Ht9-e8-VRU" id="qlY-9F-gYN"/>
                                             <segue destination="heL-N0-JwE" kind="show" identifier="DetailReveal" id="Y13-Aq-5Md"/>
                                         </connections>
                                     </tableViewCell>
@@ -468,10 +466,12 @@
                                 <variation key="widthClass=compact" constant="49"/>
                             </constraint>
                             <constraint firstItem="Llb-ss-c8b" firstAttribute="top" secondItem="lws-9u-6uf" secondAttribute="bottom" constant="3" id="VMD-Rp-qOo"/>
+                            <constraint firstItem="Llb-ss-c8b" firstAttribute="width" secondItem="VRt-KF-phx" secondAttribute="width" multiplier="0.5" constant="20" id="W1X-Pd-5el">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="Llb-ss-c8b" firstAttribute="centerX" secondItem="VRt-KF-phx" secondAttribute="centerX" id="acw-jw-mec"/>
                             <constraint firstItem="HoM-Mp-LyS" firstAttribute="top" secondItem="lws-9u-6uf" secondAttribute="bottom" constant="39" id="qdT-DD-oG5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Llb-ss-c8b" secondAttribute="trailing" id="tpG-cI-7hq"/>
                             <constraint firstAttribute="trailing" secondItem="HoM-Mp-LyS" secondAttribute="trailing" id="wWp-tB-fMR"/>
-                            <constraint firstItem="Llb-ss-c8b" firstAttribute="leading" secondItem="VRt-KF-phx" secondAttribute="leadingMargin" id="x6T-jK-DR7"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -480,8 +480,8 @@
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="VMD-Rp-qOo"/>
-                                <exclude reference="tpG-cI-7hq"/>
-                                <exclude reference="x6T-jK-DR7"/>
+                                <exclude reference="W1X-Pd-5el"/>
+                                <exclude reference="acw-jw-mec"/>
                                 <exclude reference="64u-jq-i55"/>
                                 <exclude reference="PX5-ui-9Xf"/>
                                 <exclude reference="qdT-DD-oG5"/>
@@ -495,8 +495,8 @@
                             </mask>
                             <mask key="constraints">
                                 <include reference="VMD-Rp-qOo"/>
-                                <include reference="tpG-cI-7hq"/>
-                                <include reference="x6T-jK-DR7"/>
+                                <include reference="W1X-Pd-5el"/>
+                                <include reference="acw-jw-mec"/>
                                 <include reference="64u-jq-i55"/>
                                 <include reference="PX5-ui-9Xf"/>
                                 <include reference="qdT-DD-oG5"/>
@@ -704,7 +704,9 @@
                         <constraints>
                             <constraint firstItem="ako-VN-fPJ" firstAttribute="centerX" secondItem="vOd-vm-1NN" secondAttribute="centerX" id="BLg-Qp-fMg"/>
                             <constraint firstItem="ako-VN-fPJ" firstAttribute="top" secondItem="UU8-SQ-Zml" secondAttribute="bottom" constant="-200" id="Hgw-Og-vMq"/>
-                            <constraint firstItem="dub-R1-5e0" firstAttribute="top" secondItem="UU8-SQ-Zml" secondAttribute="bottom" id="V6j-n6-IpF"/>
+                            <constraint firstItem="dub-R1-5e0" firstAttribute="top" secondItem="UU8-SQ-Zml" secondAttribute="bottom" id="V6j-n6-IpF">
+                                <variation key="widthClass=compact" constant="-1"/>
+                            </constraint>
                             <constraint firstItem="UU8-SQ-Zml" firstAttribute="top" secondItem="pt3-gf-n8q" secondAttribute="bottom" id="Zde-BO-RM2">
                                 <variation key="widthClass=compact" constant="-20"/>
                             </constraint>
