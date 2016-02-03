@@ -24,6 +24,24 @@ class ListedCell: UITableViewCell {
         
         let imageFile = result["image"] as? PFFile
         
+        let isGiver = result[AppKeys.ItemRelationship.owner] as? PFUser == PFUser.currentUser()
+        let borrowUser = result[AppKeys.ItemRelationship.requester] as? PFUser
+        let connected = result[AppKeys.ItemRelationship.connected] as! Bool
+        
+        print(isGiver, borrowUser, connected)
+        
+        if isGiver {
+            if let borrower = borrowUser {
+                let query = PFUser.query()!
+                query.getObjectInBackgroundWithId(borrower.objectId!, block: { (requester, error) -> Void in
+                    self.statusLabel.text = connected ? "lended to " : "requested by "
+                    if let requester = requester as? PFUser{
+                        self.statusLabel.text = self.statusLabel.text! + String(requester.username!)
+                    }
+                })
+            }
+        }
+        
         if let imageFile = imageFile {
             imageFile.getDataInBackgroundWithBlock {
                 (imageData: NSData?, error: NSError?) -> Void in
