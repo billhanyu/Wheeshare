@@ -87,7 +87,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             segmentedControl.hidden = false
             tableViewTop.constant = 39
             tableViewBottom.constant = 0
-            title = "My Shares"
+            title = "Their Stuff"
             tableView.reloadData()
         case .ShowOwn:
             segmentedControl.hidden = true

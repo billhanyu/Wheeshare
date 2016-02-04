@@ -365,8 +365,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-ss-c8b">
                                 <rect key="frame" x="-60" y="-14" width="121" height="29"/>
                                 <segments>
-                                    <segment title="Requests"/>
-                                    <segment title="Borrows"/>
+                                    <segment title="My Requests"/>
+                                    <segment title="My Borrows"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.52730429292929293" blue="0.43935011438179833" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -936,7 +936,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Browse My Shares" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mFp-y5-YXI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Their Stuff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mFp-y5-YXI">
                                                     <rect key="frame" x="15" y="12" width="141.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>

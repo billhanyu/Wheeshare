@@ -28,8 +28,6 @@ class ListedCell: UITableViewCell {
         let borrowUser = result[AppKeys.ItemRelationship.requester] as? PFUser
         let connected = result[AppKeys.ItemRelationship.connected] as! Bool
         
-        print(isGiver, borrowUser, connected)
-        
         if isGiver {
             if let borrower = borrowUser {
                 let query = PFUser.query()!
