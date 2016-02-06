@@ -41,7 +41,7 @@ private(set) var state: State = .NotSearchedYet
 
 class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoadMoreTableFooterViewDelegate {
     var refresher:UIRefreshControl!
-    var givenItems: [PFObject] = []
+    var givenItems: [GivenItem] = []
     
     let ITEM_SINGLE_LOAD_AMOUNT:Int = 15
     var ITEM_SKIP_AMOUNT:Int = 0
@@ -228,7 +228,10 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             switch showCategory {
             case .ShowAll:
                 for given in result! {
-                    self.givenItems.append(given)
+                    print(given)
+                    let item = GivenItem()
+                    item.result = given
+                    self.givenItems.append(item)
                 }
             case .ShowShare:
                 for given in result! {
@@ -237,11 +240,15 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     switch self.shareCategory{
                     case .BorrowRequest:
                         if borrowUser && !connected {
-                            self.givenItems.append(given)
+                            let item = GivenItem()
+                            item.result = given
+                            self.givenItems.append(item)
                         }
                     case .Borrow:
                         if borrowUser && connected {
-                            self.givenItems.append(given)
+                            let item = GivenItem()
+                            item.result = given
+                            self.givenItems.append(item)
                         }
                     }
                 }
@@ -249,7 +256,9 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 for given in result! {
                     let isOwner = given[AppKeys.ItemRelationship.owner] as? PFUser == self.currentUser
                     if isOwner {
-                        self.givenItems.append(given)
+                        let item = GivenItem()
+                        item.result = given
+                        self.givenItems.append(item)
                     }
                 }
             }
@@ -300,7 +309,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier(AppKeys.CellIdentifiers.listedCell, forIndexPath: indexPath) as! ListedCell
-            cell.initWithResult(givenItems[indexPath.row])
+            cell.initWithItem(givenItems[indexPath.row])
             return cell
         }
     }
@@ -323,7 +332,7 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            givenItems[indexPath.row].deleteInBackground()
+            givenItems[indexPath.row].result.deleteInBackground()
             givenItems.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }

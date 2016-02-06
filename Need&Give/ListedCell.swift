@@ -53,6 +53,10 @@ class ListedCell: UITableViewCell {
         }
     }
     
+    func initWithItem(givenItem: GivenItem) {
+        self.givenName.text = givenItem.name
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         

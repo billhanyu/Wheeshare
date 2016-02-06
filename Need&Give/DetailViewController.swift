@@ -26,7 +26,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	let approvedLabel = UILabel()
 	let query = PFUser.query()!
     
-    var item: PFObject!
+    var item: GivenItem!
     var mailAddress: String?
     
     override func viewDidLoad() {
@@ -88,41 +88,33 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	}
     
     func updateUI() {
-        navigationItem.title = item[AppKeys.ItemProperties.name] as! String?
-        categoryNameLabel.text = item[AppKeys.ItemProperties.category] as! String?
-        conditionStatus.text = item[AppKeys.ItemProperties.condition] as! String?
-        contentLabel.text = item[AppKeys.ItemProperties.description] as! String?
+        navigationItem.title = item.name
+        categoryNameLabel.text = item.category
+        conditionStatus.text = item.condition
+        contentLabel.text = item.detail
         requestButton.enabled = true
 		imageView.layer.cornerRadius = 20.0
         
-        if item[AppKeys.ItemRelationship.requester] as? PFUser == PFUser.currentUser() {
-			if let owner = item[AppKeys.ItemRelationship.requestedLender] as? PFUser {
-				query.getObjectInBackgroundWithId(owner.objectId!, block: { (lender: PFObject?, error: NSError?) -> Void in
-					if let lender = lender {
-						self.mailAddress = String(lender[AppKeys.User.email])
-						self.view.addSubview(self.emailButton)
-					}
-				})
+        if item.requester == PFUser.currentUser() {
+			if let owner = item.owner {
+				self.mailAddress = owner.email
+				self.view.addSubview(self.emailButton)
 			}
 			
-            if item[AppKeys.ItemRelationship.connected] as! Bool {
+            if item.connected {
                 view.addSubview(approvedLabel)
             }
             else {
                 view.addSubview(requestedLabel)
             }
         }
-        else if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
-			if let requester = item[AppKeys.ItemRelationship.requester] as? PFUser {
-				query.getObjectInBackgroundWithId(requester.objectId!, block: { (borrower: PFObject?, error: NSError?) -> Void in
-					if let borrower = borrower {
-						self.mailAddress = String(borrower[AppKeys.User.email])
-						self.view.addSubview(self.emailButton)
-					}
-				})
+        else if item.owner == PFUser.currentUser() {
+			if let requester = item.requester {
+				self.mailAddress = requester.email
+				self.view.addSubview(self.emailButton)
 			}
 			
-            if item[AppKeys.ItemRelationship.connected] as! Bool {
+            if item.connected {
                 view.addSubview(approvedLabel)
             }
             else {
@@ -133,19 +125,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 			view.addSubview(requestButton)
 		}
         
-        let imageFile = item[AppKeys.ItemProperties.image] as? PFFile
+        let imageFile = item.image
         
         if let imageFile = imageFile {
-            imageFile.getDataInBackgroundWithBlock {
-                (imageData: NSData?, error: NSError?) -> Void in
-                if error == nil {
-                    if let imageData = imageData {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.imageView.image = UIImage(data:imageData)
-                        })
-                    }
-                }
-            }
+			self.imageView.image = imageFile
         }
         
         view.layoutIfNeeded()
@@ -155,12 +138,9 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         let user = PFUser.currentUser()
         
         // save the request in user
-        item[AppKeys.ItemRelationship.requester] = user!
-        item.saveInBackground()
-        
-        let giver = item[AppKeys.ItemRelationship.owner] as! PFUser
-        item[AppKeys.ItemRelationship.requestedLender] = giver
-        item.saveInBackground()
+        item.result[AppKeys.ItemRelationship.requester] = user!
+        item.result.saveInBackground()
+		item.requester = user!
         
         self.noticeSuccess("Requested!", autoClear: true, autoClearTime: 1)
 		
@@ -174,8 +154,9 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func borrowApprove() {
-        item[AppKeys.ItemRelationship.connected] = true
-        item.saveInBackground()
+        item.result[AppKeys.ItemRelationship.connected] = true
+        item.result.saveInBackground()
+		item.connected = true
 		
 		self.noticeSuccess("Approved!", autoClear: true, autoClearTime: 1)
 		
