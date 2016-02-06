@@ -6,14 +6,6 @@
 //  Copyright © 2015 Bill Yu. All rights reserved.
 //
 
-/* next tasks:
-
-1. change the button function in detailviewcontroller
-2. let users contact
-3. show current condition of the relationship
-
-*/
-
 import UIKit
 import Parse
 import Bolts

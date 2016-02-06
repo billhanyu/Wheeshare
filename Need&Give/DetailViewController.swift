@@ -238,10 +238,11 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         
         mailComposerVC.setToRecipients([mailAddress!])
-        mailComposerVC.setSubject("I need this...")
+		/*
+		mailComposerVC.setSubject("I need this...")
         if let stuffName = navigationItem.title {
             mailComposerVC.setMessageBody("I need \(stuffName)", isHTML: false)
-        }
+        }*/
         
         return mailComposerVC
     }
