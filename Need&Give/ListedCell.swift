@@ -34,7 +34,7 @@ class ListedCell: UITableViewCell {
                 query.getObjectInBackgroundWithId(borrower.objectId!, block: { (requester, error) -> Void in
                     self.statusLabel.text = connected ? "lended to " : "requested by "
                     if let requester = requester as? PFUser{
-                        self.statusLabel.text = self.statusLabel.text! + String(requester.username!)
+                        self.statusLabel.text! += requester == PFUser.currentUser() ? "me" : String(requester.username!)
                     }
                 })
             }

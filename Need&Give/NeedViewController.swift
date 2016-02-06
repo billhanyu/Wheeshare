@@ -322,10 +322,26 @@ class NeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let item = givenItems[indexPath.row]
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            givenItems[indexPath.row].deleteInBackground()
-            givenItems.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            if item[AppKeys.ItemRelationship.requester] != nil {
+                let alertVC = UIAlertController(title: "Error", message: "The item is being requested/borrowed", preferredStyle: .Alert)
+                let knowButton = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+                alertVC.addAction(knowButton)
+                self.presentViewController(alertVC, animated: true, completion: nil)
+            }
+            else {
+                let alertVC = UIAlertController(title: "Please Confirm", message: "Are you sure? Your item will be deleted", preferredStyle: .Alert)
+                let cancelButton = UIAlertAction(title: "cancel", style: .Cancel, handler: nil)
+                let confirmButton = UIAlertAction(title: "Delete", style: .Default, handler: { _ in
+                    item.deleteInBackground()
+                    self.givenItems.removeAtIndex(indexPath.row)
+                    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                })
+                alertVC.addAction(cancelButton)
+                alertVC.addAction(confirmButton)
+                self.presentViewController(alertVC, animated: true, completion: nil)
+            }
         }
     }
     

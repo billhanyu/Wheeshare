@@ -22,8 +22,8 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	let requestButton = UIButton()
 	let approveButton = UIButton()
 	let emailButton = UIButton()
-	let requestedLabel = UILabel()
-	let approvedLabel = UILabel()
+	let cancelRequestButton = UIButton()
+	let relendItemButton = UIButton()
 	let query = PFUser.query()!
     
     var item: PFObject!
@@ -69,22 +69,20 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		emailButton.addTarget(self, action: Selector("email"), forControlEvents: UIControlEvents.TouchUpInside)
 		
 		// requested label
-		requestedLabel.textColor = UIColor.whiteColor()
-		requestedLabel.text = "I Requested"
-		requestedLabel.textAlignment = .Center
-		requestedLabel.backgroundColor = UIColor.darkGrayColor()
-		requestedLabel.layer.cornerRadius = 10.0
-		requestedLabel.clipsToBounds = true
-		requestedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		cancelRequestButton.setTitle("cancel request", forState: .Normal)
+		cancelRequestButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		cancelRequestButton.backgroundColor = UIColor.darkGrayColor()
+		cancelRequestButton.layer.cornerRadius = 10.0
+		cancelRequestButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		cancelRequestButton.addTarget(self, action: Selector("cancelRequest"), forControlEvents: UIControlEvents.TouchUpInside)
 		
 		// approved label
-		approvedLabel.textColor = UIColor.whiteColor()
-		approvedLabel.text = "Approved"
-		approvedLabel.textAlignment = .Center
-		approvedLabel.backgroundColor = UIColor.darkGrayColor()
-		approvedLabel.layer.cornerRadius = 10.0
-		approvedLabel.clipsToBounds = true
-		approvedLabel.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		relendItemButton.setTitle("relend item", forState: .Normal)
+		relendItemButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		relendItemButton.backgroundColor = UIColor.darkGrayColor()
+		relendItemButton.layer.cornerRadius = 10.0
+		relendItemButton.frame = CGRect(origin: CGPoint(x: view.bounds.width / 10 * 3, y: view.bounds.height / 5 * 4), size: CGSize(width: view.bounds.width / 5 * 2, height: 50))
+		relendItemButton.addTarget(self, action: Selector("relendItem"), forControlEvents: UIControlEvents.TouchUpInside)
 	}
     
     func updateUI() {
@@ -106,10 +104,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 			}
 			
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                view.addSubview(approvedLabel)
+                view.addSubview(relendItemButton)
             }
             else {
-                view.addSubview(requestedLabel)
+                view.addSubview(cancelRequestButton)
             }
         }
         else if item[AppKeys.ItemRelationship.requestedLender] as? PFUser == PFUser.currentUser() {
@@ -123,7 +121,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 			}
 			
             if item[AppKeys.ItemRelationship.connected] as! Bool {
-                view.addSubview(approvedLabel)
+                view.addSubview(relendItemButton)
             }
             else {
                 view.addSubview(approveButton)
@@ -167,7 +165,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
 				self.requestButton.removeFromSuperview()
 			}, completion: { _ in
-				self.view.addSubview(self.requestedLabel)
+				self.view.addSubview(self.cancelRequestButton)
 		})
 
         // notify the lender
@@ -182,7 +180,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 		UIView.animateWithDuration(0.33, delay: 0.0, options: [.CurveEaseInOut], animations: {
 			self.approveButton.removeFromSuperview()
 			}, completion: { _ in
-				self.view.addSubview(self.approvedLabel)
+				self.view.addSubview(self.relendItemButton)
 		})
         // notify the requester
     }
@@ -210,6 +208,29 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	func email() {
 		let mailVC = configuredMailComposeViewController()
 		presentViewController(mailVC, animated: true, completion: nil)
+	}
+	
+	func cancelRequest() {
+		item.removeObjectForKey(AppKeys.ItemRelationship.requester)
+		item.removeObjectForKey(AppKeys.ItemRelationship.requestedLender)
+		print(item)
+		item.saveInBackground()
+		self.updateUI()
+	}
+	
+	func relendItem() {
+		let alertVC = UIAlertController(title: "Relend?", message: "Please make sure you got the item back!", preferredStyle: .Alert)
+		let cancelButton = UIAlertAction(title: "cancel", style: .Cancel, handler: nil)
+		let confirmButton = UIAlertAction(title: "Confirm", style: .Default, handler: { _ in
+			self.item.removeObjectForKey(AppKeys.ItemRelationship.requestedLender)
+			self.item.removeObjectForKey(AppKeys.ItemRelationship.requestedLender)
+			self.item[AppKeys.ItemRelationship.connected] = false
+			self.item.saveInBackground()
+			self.updateUI()
+		})
+		alertVC.addAction(cancelButton)
+		alertVC.addAction(confirmButton)
+		self.presentViewController(alertVC, animated: true, completion: nil)
 	}
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
