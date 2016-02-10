@@ -16,6 +16,7 @@ class ListedCell: UITableViewCell {
     @IBOutlet weak var givenImageView: UIImageView!
     @IBOutlet weak var givenName: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var starImageView: UIImageView!
     
     func initWithResult(result: PFObject) {
         self.givenName.text = result["Name"] as! String?
@@ -29,6 +30,7 @@ class ListedCell: UITableViewCell {
         let connected = result[AppKeys.ItemRelationship.connected] as! Bool
         
         if isGiver {
+            starImageView.hidden = false
             if let borrower = borrowUser {
                 let query = PFUser.query()!
                 query.getObjectInBackgroundWithId(borrower.objectId!, block: { (requester, error) -> Void in

@@ -412,18 +412,47 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YellowStar" translatesAutoresizingMaskIntoConstraints="NO" id="Epa-gC-YXc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <color key="tintColor" red="0.95083816062281445" green="1" blue="0.49868258170610358" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="Jxg-a6-s1F">
+                                                            <variation key="widthClass=compact" constant="30"/>
+                                                        </constraint>
+                                                        <constraint firstAttribute="width" constant="25" id="yRn-2B-GVP"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Jxg-a6-s1F"/>
+                                                            <exclude reference="yRn-2B-GVP"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="Jxg-a6-s1F"/>
+                                                            <include reference="yRn-2B-GVP"/>
+                                                        </mask>
+                                                    </variation>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Epa-gC-YXc" firstAttribute="trailing" secondItem="wWl-jt-dkj" secondAttribute="trailingMargin" id="9JN-cN-Q8E"/>
                                                 <constraint firstItem="Ht9-e8-VRU" firstAttribute="leading" secondItem="K8b-tV-2Rn" secondAttribute="trailing" constant="16" id="BrB-b5-JlS"/>
                                                 <constraint firstItem="K8b-tV-2Rn" firstAttribute="leading" secondItem="wWl-jt-dkj" secondAttribute="leadingMargin" constant="8" id="MQe-e2-3UH"/>
                                                 <constraint firstItem="6Hm-F8-Caz" firstAttribute="leading" secondItem="K8b-tV-2Rn" secondAttribute="trailing" constant="16" id="NuG-sw-p7W"/>
+                                                <constraint firstItem="Epa-gC-YXc" firstAttribute="top" secondItem="wWl-jt-dkj" secondAttribute="topMargin" id="WXB-ht-Chh"/>
                                                 <constraint firstItem="K8b-tV-2Rn" firstAttribute="centerY" secondItem="wWl-jt-dkj" secondAttribute="centerY" id="XtE-CZ-oxK"/>
                                                 <constraint firstItem="K8b-tV-2Rn" firstAttribute="height" secondItem="wWl-jt-dkj" secondAttribute="height" multiplier="0.8" id="YNa-Te-eiy"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Ht9-e8-VRU" secondAttribute="bottom" constant="10" id="Zdu-pf-Pg2"/>
                                                 <constraint firstItem="6Hm-F8-Caz" firstAttribute="top" secondItem="wWl-jt-dkj" secondAttribute="topMargin" constant="1" id="r1m-b3-mry"/>
                                             </constraints>
                                             <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Epa-gC-YXc"/>
+                                                </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="9JN-cN-Q8E"/>
+                                                    <exclude reference="WXB-ht-Chh"/>
                                                     <exclude reference="MQe-e2-3UH"/>
                                                     <exclude reference="XtE-CZ-oxK"/>
                                                     <exclude reference="YNa-Te-eiy"/>
@@ -434,7 +463,12 @@
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="Epa-gC-YXc"/>
+                                                </mask>
                                                 <mask key="constraints">
+                                                    <include reference="9JN-cN-Q8E"/>
+                                                    <include reference="WXB-ht-Chh"/>
                                                     <include reference="MQe-e2-3UH"/>
                                                     <include reference="XtE-CZ-oxK"/>
                                                     <include reference="YNa-Te-eiy"/>
@@ -448,6 +482,7 @@
                                         <connections>
                                             <outlet property="givenImageView" destination="K8b-tV-2Rn" id="sXR-Ky-ejp"/>
                                             <outlet property="givenName" destination="6Hm-F8-Caz" id="8YP-JZ-6KX"/>
+                                            <outlet property="starImageView" destination="Epa-gC-YXc" id="fXW-kr-PsQ"/>
                                             <outlet property="statusLabel" destination="Ht9-e8-VRU" id="qlY-9F-gYN"/>
                                             <segue destination="heL-N0-JwE" kind="show" identifier="DetailReveal" id="Y13-Aq-5Md"/>
                                         </connections>
@@ -534,6 +569,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="59" y="383" width="93" height="20"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="N/A" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKb-bV-yZx">
                                 <rect key="frame" x="63" y="432" width="249" height="49"/>
@@ -937,7 +975,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Their Stuff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mFp-y5-YXI">
-                                                    <rect key="frame" x="15" y="12" width="141.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="12" width="81.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1090,6 +1128,7 @@
         <image name="LaunchScreen" width="360" height="640"/>
         <image name="Lend" width="33" height="33"/>
         <image name="User" width="33" height="33"/>
+        <image name="YellowStar" width="672" height="900"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gdP-wL-AQT"/>

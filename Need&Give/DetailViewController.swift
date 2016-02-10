@@ -127,7 +127,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
                 view.addSubview(approveButton)
             }
         }
-		else {
+		else if item[AppKeys.ItemRelationship.owner] as? PFUser != PFUser.currentUser() {
 			view.addSubview(requestButton)
 		}
         
@@ -213,7 +213,6 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
 	func cancelRequest() {
 		item.removeObjectForKey(AppKeys.ItemRelationship.requester)
 		item.removeObjectForKey(AppKeys.ItemRelationship.requestedLender)
-		print(item)
 		item.saveInBackground()
 		self.updateUI()
 	}
